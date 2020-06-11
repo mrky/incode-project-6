@@ -18,7 +18,7 @@ Name Controllers in plural format.
 ## Coding conventions
 
 Use 'single' quotes in JavaScript files.
-Use all lowercase inside HTML and CSS.
-Use kebab-case to name HTML attributes.
+Use all lowercase and "double" quotes inside HTML and CSS files.
+Use kebab-case to name HTML attributes. For example, if an name="confirm-password" instead of name='confirmPassword'
 
 
