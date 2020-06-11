@@ -15,4 +15,10 @@ Use PascalCase when importing a Controller or Model. For example, const User = r
 Name Models in sigular format.
 Name Controllers in plural format.
 
+## Coding conventions
+
+Use 'single' quotes in JavaScript files.
+Use all lowercase inside HTML and CSS.
+Use kebab-case to name HTML attributes.
+
 
