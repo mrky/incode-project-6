@@ -18,7 +18,20 @@ Name Controllers in plural format.
 ## Coding conventions
 
 Use 'single' quotes in JavaScript files.
-Use all lowercase and "double" quotes inside HTML and CSS files.
-Use kebab-case to name HTML attributes. For example, if an name="confirm-password" instead of name='confirmPassword'
+Use 'single' quotes and lowercase inside CSS files.
+Use all lowercase and "double" quotes inside HTML files.
+Use kebab-case to name HTML attributes. For example, if name="confirm-password" instead of name='confirmPassword'.
 
+## EJS
+
+For each ejs file loaded include the header at the top of the file and the footer at the bootom.
+Like so:
+
+- <%- include('partials/header') %>
+- <page content>
+- <%- include('partials/footer') %>
+
+The header file opens a div tag that is later closed in the footer file.
+All page content will go inside this div.
+Using Bootstrap.
 
