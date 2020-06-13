@@ -6,7 +6,7 @@
 
         <div class="form-inline flex-column-reverse flex-sm-row mb-3">
             <input class="form-control flex-grow-1 mr-sm-1 shadow" id="search" name="search" type="search"
-                placeholder="Search" autocomplete="off" autofocus="true" aria-label="Search locations">
+                placeholder="Search" autocomplete="off" autofocus="autofocus" aria-label="Search locations">
             <select class="custom-select mb-2 mb-sm-0 shadow" id="location" name="location">
                 <option selected="selected" disabled="disabled">Select Location</option>
                 <option value="all">All</option>
@@ -16,17 +16,17 @@
 </div>
 
 
-<div class="container-fluid px-5">
+<div class="container-fluid px-4 px-md-5">
     <div class="row">
         <% locations.forEach(location => { %>
 
-        <div class="col-12 col-sm-6 my-5 px-4">
-            <div class="px-4 py-4 shadow-lg rounded">
-                <img class="d-block float-right ml-3 mb-3 mw-100 shadow rounded"
+        <div class="col-12 col-lg-6 my-4 my-sm-5 px-4">
+            <div class="px-4 py-4 shadow-lg rounded border-burlywood">
+                <img class="d-block mx-auto float-sm-right ml-sm-3 mb-4 mb-lg-3 img-fluid shadow rounded"
                     src="<%= /images/ %><%= location %><%= '.jpg' %>" alt="maldives">
 
                 <div class="mr-2">
-                    <h5 class="mt-2 word-break-all"><%= location %></h5>
+                    <h3 class="mt-2 word-break-all"><%= location %></h3>
                     <p class="m-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur in erat pretium tellus aliquam
                         dapibus
                         cursus vitae risus. Praesent auctor enim urna, et finibus metus elementum et. Vestibulum nec

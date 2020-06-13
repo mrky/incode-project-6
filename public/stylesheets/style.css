@@ -38,3 +38,7 @@ a {
 .word-break-all {
     word-break: break-all;
 }
+
+.border-burlywood {
+    border: 1px solid burlywood;
+}
