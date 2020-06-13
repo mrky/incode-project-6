@@ -1,12 +1,18 @@
+const UserSchema = require('../models/user.model')
 module.exports = {
     index: (req, res, next) => {
-        // todo
-        res.send('respond with a resource');
+        res.render('login')
     },
 
     login: (req, res, next) => {
-        // todo
-        res.send('respond with a resource');
+        console.log('se'+req.body.password)
+        UserSchema.login(req.body.email, req.body.password).then(function(user) {   
+            console.log('usu '+user)
+            req.session.email = user.email      
+            req.session.isAdmin = user.isAdmin 
+            console.log('sessao '+req.session.firstName)
+            res.render('index', {title:'Login', isLogged : true})
+        }).catch((err) => setImmediate(() => {console.log(err); res.status(500).send(err.toString())}));   
     },
 
     displayRegister: (req, res, next) => {
@@ -20,8 +26,10 @@ module.exports = {
     },
 
     logout: (req, res, next) => {
-        // todo
-        res.send('respond with a resource');
+        console.log('sessao '+req.session.email)
+        req.session.destroy(function (err) {
+            res.render('index', {isLogged : false})
+        });
     },
 
     profile: (req, res, next) => {
