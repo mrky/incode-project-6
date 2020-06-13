@@ -28,7 +28,7 @@ For each ejs file loaded include the header at the top of the file and the foote
 Like so:
 
 - <%- include('partials/header') %>
-- <page content>
+- <\page content>
 - <%- include('partials/footer') %>
 
 The header file opens a div tag that is later closed in the footer file.
