@@ -1,6 +1,23 @@
 module.exports = {
     index: (req, res, next) => {
         // todo
-        res.render('index', { title: 'Express' });
-    }
+        let loggedIn = true;
+
+        let locations = [
+            'australia',
+            'barcelona',
+            'canada',
+            'disney_land',
+            'france',
+            'maldives',
+            'newzealand',
+            'paris',
+        ];
+
+        res.render('index', {
+            title: 'All Locations',
+            loggedIn,
+            locations,
+        });
+    },
 };

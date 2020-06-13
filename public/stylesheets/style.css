@@ -1,8 +1,44 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    font-family: 'Josefin Sans', sans-serif;
+    min-height: 100vh;
 }
 
 a {
-  color: #00B7FF;
+    color: #00b7ff;
+}
+
+.navbar-item.nav-link {
+    border-top: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+    transition: .3s ease-in-out;
+}
+
+.navbar-item.nav-link:hover {
+    border-bottom: 1px solid white;
+}
+
+#banner {
+    background-image: url('/images/lighthouse-3296492_1920.jpg');
+    background-position: center;
+    background-size: cover;
+    min-height: 20vh;
+}
+
+#footer {
+    background-image: url('/images/sunset-1373171_1920.jpg');
+    background-position: center;
+    background-size: cover;
+    min-height: 25vh;
+}
+
+.text-shadow {
+    text-shadow: 1px 1px #534e4e;
+}
+
+.word-break-all {
+    word-break: break-all;
+}
+
+.border-burlywood {
+    border: 1px solid burlywood;
 }
