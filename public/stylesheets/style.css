@@ -12,7 +12,7 @@ a {
 } */
 
 .rgba-dark {
-    background-color: rgba(19, 22, 26, 0.5);
+    background-color: rgba(19, 22, 26, 0.75);
 }
 
 .navbar-item.nav-link {
@@ -33,7 +33,7 @@ a {
 } */
 
 #footer {
-    background-image: url('/images/sunset-1373171_1920.jpg');
+    background-image: url('/images/waves-1867285_1920.jpg');
     background-position: center;
     background-size: cover;
     /* min-height: 25vh; */
@@ -41,7 +41,7 @@ a {
     bottom: 0;
     z-index: -99;
     height: 100vh;
-    background-color: rgba(55, 28, 28, 0.4);
+    background-color: rgba(55, 28, 28, 0.5);
     background-blend-mode: overlay;
 }
 
