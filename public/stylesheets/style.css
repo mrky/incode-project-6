@@ -7,28 +7,42 @@ a {
     color: #00b7ff;
 }
 
+/* .navbar-dark {
+    background-color: rgba(52, 58, 64, 0.2);
+} */
+
+.rgba-dark {
+    background-color: rgba(19, 22, 26, 0.5);
+}
+
 .navbar-item.nav-link {
     border-top: 1px solid transparent;
     border-bottom: 1px solid transparent;
-    transition: .3s ease-in-out;
+    transition: 0.3s ease-in-out;
 }
 
 .navbar-item.nav-link:hover {
     border-bottom: 1px solid white;
 }
 
-#banner {
+/* #banner {
     background-image: url('/images/lighthouse-3296492_1920.jpg');
     background-position: center;
     background-size: cover;
     min-height: 20vh;
-}
+} */
 
 #footer {
     background-image: url('/images/sunset-1373171_1920.jpg');
     background-position: center;
     background-size: cover;
-    min-height: 25vh;
+    /* min-height: 25vh; */
+    position: fixed;
+    bottom: 0;
+    z-index: -99;
+    height: 100vh;
+    background-color: rgba(55, 28, 28, 0.4);
+    background-blend-mode: overlay;
 }
 
 .text-shadow {
@@ -41,4 +55,10 @@ a {
 
 .border-burlywood {
     border: 1px solid burlywood;
+}
+
+.bg-sunset {
+    background-image: url('/images/sunset-1373171_1920.jpg');
+    background-position: center;
+    background-size: cover;
 }

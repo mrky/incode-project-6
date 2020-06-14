@@ -1,17 +1,48 @@
-<body>
-    <div class="main"> 
+<!-- <body>
+    <div class="main">
         <form action="/users/login" method="post">
-           
+
             <label for="email">E-mail</label>
             <input type="text" name="email" id="email" size="40" autofocus><br><br>
-            
+
             <label for="password">Password</i></label>
-            <input type="password" name="password" id="password"  size="40" autofocus><br><br>
-  
+            <input type="password" name="password" id="password" size="40" autofocus><br><br>
+
             <input type="submit" value="Login">
-              
-        </form>           
-    </div>  
-</body>
-  
-  
+
+        </form>
+    </div>
+</body> -->
+
+<%- include('partials/header'); %>
+
+<div class="container mt-4 px-4 text-shadow">
+    <div class="col-12 col-md-6 mx-auto mb-5">
+        <% if (typeof title !== 'undefined') { %>
+        <%- include('partials/title', {title}); %>
+        <% } %>
+
+        <form action="/users/login" method="post" class="mb-3 font-weight-bold">
+            <div class="form-group">
+                <label for="email">Email address</label>
+                <input type="email" name="email" class="form-control shadow-sm" id="email" required="required"
+                    autofocus="autofocus">
+            </div>
+
+            <div class="form-group mb-4">
+                <label for="password">Password</label>
+                <input type="password" name="password" class="form-control shadow-sm" id="password" required="required">
+            </div>
+
+            <div class="my-4 pt-3 text-center">
+                <button type="submit" class="btn btn-dark shadow-sm">Login</button>
+            </div>
+        </form>
+
+        <div class="my-4 text-center">
+            <a class="text-light font-weight-bold" href="/users/register">Need an account? Sign up here.</a>
+        </div>
+    </div>
+</div>
+
+<%- include('partials/footer'); %>

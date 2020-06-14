@@ -1,7 +1,7 @@
 module.exports = {
     index: (req, res, next) => {
         // todo
-        let loggedIn = true;
+        // let loggedIn = true;
 
         let locations = [
             'australia',
@@ -16,7 +16,7 @@ module.exports = {
 
         res.render('index', {
             title: 'All Locations',
-            loggedIn,
+            // loggedIn,
             locations,
         });
     },

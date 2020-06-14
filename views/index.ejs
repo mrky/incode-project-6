@@ -1,8 +1,10 @@
-<%- include('partials/header') %>
+<%- include('partials/header'); %>
 
-<div class="container-fluid mb-5 py-4" id="banner">
+<div class="container-fluid py-4" id="banner">
     <div class="container text-light text-shadow">
-        <h1 class="mb-4"><%= title %></h1>
+        <% if (typeof title !== 'undefined') { %>
+        <%- include('partials/title', {title}); %>
+        <% } %>
 
         <div class="form-inline flex-column-reverse flex-sm-row mb-3">
             <input class="form-control flex-grow-1 mr-sm-1 shadow" id="search" name="search" type="search"
@@ -21,13 +23,14 @@
         <% locations.forEach(location => { %>
 
         <div class="col-12 col-lg-6 my-4 my-sm-5 px-4">
-            <div class="px-4 py-4 shadow-lg rounded border-burlywood">
+            <div class="px-4 py-4 shadow-lg rounded text-shadow rgba-dark">
                 <img class="d-block mx-auto float-sm-right ml-sm-3 mb-4 mb-lg-3 img-fluid shadow rounded"
                     src="<%= /images/ %><%= location %><%= '.jpg' %>" alt="maldives">
 
                 <div class="mr-2">
                     <h3 class="mt-2 word-break-all"><%= location %></h3>
-                    <p class="m-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur in erat pretium tellus aliquam
+                    <p class="m-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur in erat pretium
+                        tellus aliquam
                         dapibus
                         cursus vitae risus. Praesent auctor enim urna, et finibus metus elementum et. Vestibulum nec
                         mauris
@@ -48,4 +51,4 @@
     </div>
 </div>
 
-<%- include('partials/footer') %>
+<%- include('partials/footer'); %>
