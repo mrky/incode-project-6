@@ -1,0 +1,45 @@
+<%- include('../partials/header'); %>
+
+<div class="container mt-4 px-4 text-shadow">
+    <div class="col-12 col-md-6 mx-auto mb-5">
+        <% if (typeof title !== 'undefined') { %>
+        <%- include('../partials/title', {title}); %>
+        <% } %>
+
+        <form action="/users/register" method="post" class="mb-3 font-weight-bold">
+            <div class="form-group">
+                <label for="firstname">First name</label>
+                <input type="text" name="firstname" class="form-control shadow-sm" id="firstname" required="required"
+                    autofocus="autofocus">
+            </div>
+
+            <div class="form-group">
+                <label for="surname">Surname</label>
+                <input type="text" name="surname" class="form-control shadow-sm" id="surname" required="required"
+                    autofocus="autofocus">
+            </div>            
+ 
+            <div class="form-group">
+                <label for="email">Email address</label>
+                <input type="email" name="email" class="form-control shadow-sm" id="email" required="required"
+                    autofocus="autofocus">
+            </div>
+
+            <div class="form-group mb-4">
+                <label for="password">Password</label>
+                <input type="password" name="password" class="form-control shadow-sm" id="password" required="required">
+            </div>
+
+            <div class="form-group mb-4">
+                <label for="repassword">Reenter password</label>
+                <input type="password" name="repassword" class="form-control shadow-sm" id="repassword" required="required">
+            </div>
+
+            <div class="my-4 pt-3 text-center">
+                <button type="submit" class="btn btn-dark shadow-sm">Register</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<%- include('../partials/footer'); %>
