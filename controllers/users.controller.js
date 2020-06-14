@@ -1,7 +1,7 @@
 const UserSchema = require('../models/user.model');
 module.exports = {
     index: (req, res, next) => {
-        res.render('login', {
+        res.render('users/login', {
             title: 'Login',
         });
     },
