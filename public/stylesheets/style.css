@@ -1,3 +1,4 @@
+/* Mark's CSS */
 body {
     font-family: 'Josefin Sans', sans-serif;
     min-height: 100vh;
@@ -7,28 +8,42 @@ a {
     color: #00b7ff;
 }
 
+/* .navbar-dark {
+    background-color: rgba(52, 58, 64, 0.2);
+} */
+
+.rgba-dark {
+    background-color: rgba(19, 22, 26, 0.75);
+}
+
 .navbar-item.nav-link {
     border-top: 1px solid transparent;
     border-bottom: 1px solid transparent;
-    transition: .3s ease-in-out;
+    transition: 0.3s ease-in-out;
 }
 
 .navbar-item.nav-link:hover {
     border-bottom: 1px solid white;
 }
 
-#banner {
+/* #banner {
     background-image: url('/images/lighthouse-3296492_1920.jpg');
     background-position: center;
     background-size: cover;
     min-height: 20vh;
-}
+} */
 
 #footer {
-    background-image: url('/images/sunset-1373171_1920.jpg');
+    background-image: url('/images/waves-1867285_1920.jpg');
     background-position: center;
     background-size: cover;
-    min-height: 25vh;
+    /* min-height: 25vh; */
+    position: fixed;
+    bottom: 0;
+    z-index: -99;
+    height: 100vh;
+    background-color: rgba(55, 28, 28, 0.5);
+    background-blend-mode: overlay;
 }
 
 .text-shadow {
@@ -43,9 +58,19 @@ a {
     border: 1px solid burlywood;
 }
 
-body {
-    background-image: url("/images/vapour.png");
+.bg-sunset {
+    background-image: url('/images/sunset-1373171_1920.jpg');
+    background-position: center;
+    background-size: cover;
 }
+
+/* ------------------------------ */
+/* Michelle's CSS */
+/* ------------------------------ */
+
+/* body {
+    background-image: url('/images/vapour.png');
+} */
 
 .grid-container {
     display: grid;
@@ -67,14 +92,11 @@ body {
 }
 
 .item1 {
-   /* background-color: blueviolet;*/
+    /* background-color: blueviolet;*/
     text-align: center;
     padding: 5px 0;
     border-radius: 15px;
     /* until grid works*/
-    
-    
-
 }
 
 #itemsContainer {
@@ -103,25 +125,25 @@ body {
     margin-top: 40px;
     padding-top: 40px;
     text-align: center;
-  }
-  
-  .like,
-  .dislike {
+}
+
+.like,
+.dislike {
     display: inline-block;
     cursor: pointer;
     margin: 10px;
-  }
-  
-  .dislike:hover,
-  .like:hover {
-    color: #2EBDD1;
-    transition: all .2s ease-in-out;
+}
+
+.dislike:hover,
+.like:hover {
+    color: #2ebdd1;
+    transition: all 0.2s ease-in-out;
     transform: scale(1.1);
-  }
-  
-  .active {
-    color: #2EBDD1;
-  }
+}
+
+.active {
+    color: #2ebdd1;
+}
 
 .itemp {
     display: block;
@@ -129,7 +151,7 @@ body {
     text-align: center;
     padding: 4px 6px;
     text-decoration: none;
-    font-size: 20px
+    font-size: 20px;
 }
 
 .pimage {
@@ -147,12 +169,12 @@ body {
     display: block;
 }
 
-nav {
+/* nav {
     margin-top: 15px;
     text-align: center;
     background-color: black;
     padding: 20px;
-}
+} */
 
 .center {
     text-align: center;
@@ -170,21 +192,21 @@ nav {
     text-align: center;
 }
 
-.form-group {
+/* .form-group {
     font-size: 25px;
     width: 100%;
     margin-left: auto;
     margin-right: auto;
     padding: 5px;
     background-color: white;
-}
+} */
 
-.form-group,
+/* .form-group,
 a {
     background-color: white;
     margin-left: auto;
     margin-right: auto;
-}
+} */
 
 .btn-primary {
     margin-left: auto;
@@ -192,7 +214,6 @@ a {
     width: 100px;
     border-radius: 25px;
     padding: 15px;
-    
 }
 
 .row justify-content-md-center {
@@ -202,7 +223,7 @@ a {
     padding: 15px;
 }
 
-.commentsSection{
+.commentsSection {
     background-color: pink;
     padding: 15px;
     margin: 15px;
@@ -210,20 +231,19 @@ a {
     border-radius: 25px;
 }
 
-.words{
+.words {
     background-color: ivory;
     padding: 10px;
     border-radius: 25px;
 }
 
-#para{
+#para {
     background-color: ivory;
     padding: 10px;
-    border-radius: 25px;  
+    border-radius: 25px;
 }
 
-#info{
-    
+#info {
     border-radius: 25px;
     width: 100px;
 }

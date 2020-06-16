@@ -35,6 +35,14 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '/public')));
 
+// Create local variables for absolute path names to use in
+// ejs include function
+app.use(function (req, res, next) {
+    res.locals.headerPartial = __dirname + '/views/partials/header';
+    res.locals.footerPartial = __dirname + '/views/partials/footer';
+    next();
+});
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/locations', locationsRouter);
