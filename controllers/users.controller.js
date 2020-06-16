@@ -22,7 +22,9 @@ module.exports = {
     },
 
     displayRegister: (req, res, next) => {
-        res.render('users/register');
+        res.render('users/register', {
+            title: 'Register',
+        });
     },
 
     register: (req, res, next) => {
