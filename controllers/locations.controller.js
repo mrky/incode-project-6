@@ -1,4 +1,4 @@
-const LocationSchema = require('../models/locations.model')
+const LocationSchema = require('../models/location.model')
 module.exports = {
     displayLocations: (req, res, next) => {
         LocationSchema.getLocations(req.body).then(function(locations) {   
