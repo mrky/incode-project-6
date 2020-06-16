@@ -1,31 +1,49 @@
-const UserSchema = require('../models/user.model')
+const UserSchema = require('../models/user.model');
 module.exports = {
     index: (req, res, next) => {
-        res.render('users/login')
-    }, 
+        res.render('users/login', {
+            title: 'Login',
+        });
+    },
 
     login: (req, res, next) => {
-        UserSchema.login(req.body.email, req.body.password).then(function(user) {   
-            req.session.email = user.email      
-            req.session.isAdmin = user.isAdmin 
-            res.render('index', {title:'Login', loggedIn : true})
-        }).catch((err) => setImmediate(() => {console.log(err); res.status(500).send(err.toString())}));   
+        UserSchema.login(req.body.email, req.body.password)
+            .then(function (user) {
+                req.session.email = user.email;
+                req.session.isAdmin = user.isAdmin;
+                res.render('index', { title: 'Login', loggedIn: true });
+            })
+            .catch((err) =>
+                setImmediate(() => {
+                    console.log(err);
+                    res.status(500).send(err.toString());
+                })
+            );
     },
 
     displayRegister: (req, res, next) => {
-        res.render('users/register')
+        res.render('users/register', {
+            title: 'Register',
+        });
     },
 
     register: (req, res, next) => {
-        UserSchema.register(req.body).then(function(user) {    
-            res.render('users/login', {title:'Login', loggedIn : true})
-        }).catch((err) => setImmediate(() => {console.log(err); res.status(500).send(err.toString())}));   
+        UserSchema.register(req.body)
+            .then(function (user) {
+                res.render('users/login', { title: 'Login', loggedIn: true });
+            })
+            .catch((err) =>
+                setImmediate(() => {
+                    console.log(err);
+                    res.status(500).send(err.toString());
+                })
+            );
     },
 
     logout: (req, res, next) => {
-        console.log('sessao '+req.session.email)
+        console.log('sessao ' + req.session.email);
         req.session.destroy(function (err) {
-            res.render('index', {isLogged : false})
+            res.render('index', { loggedIn: false });
         });
     },
 
