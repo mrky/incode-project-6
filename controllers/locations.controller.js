@@ -37,10 +37,11 @@ module.exports = {
         let { name, description } = req.body;
         debug(`name is '${name}', description is '${description}'`);
         debug(JSON.stringify(req.file));
-        let ext = path.extname(image.originalname);
+        let ext = path.extname(image.originalname).toLowerCase();
         debug(ext);
         let mimetype = image.mimetype.split('/')[1];
         debug(mimetype);
+
         if (name === '' || description === '' || image === undefined) {
             return res.send('Please fill out form completely.');
         } else if (mimetype !== 'jpeg' && mimetype !== 'png') {
@@ -49,10 +50,29 @@ module.exports = {
                 res.send('Only jpeg or png files may be uploaded.');
             });
         }
+
+        if (ext !== '.jpg') {
+            ext = `.${mimetype}`;
+        }
+
         // todo
         let tempPath = req.file.path;
-        let targetPath = path.join(__dirname, './public/images/uploads/');
-        res.send('respond with a resource');
+        debug(tempPath);
+        let rootPath = path.parse(__dirname).root;
+        let targetPath = path.join('./public/images/uploads/', req.file.filename.toString() + ext);
+
+        fs.rename(tempPath, targetPath, (err) => {
+            if (err) throw err;
+
+            debug('file uploaded to', targetPath);
+
+            return res
+                .status(200)
+                .contentType('text/plain')
+                .end('File uploaded!');
+        });
+
+        // res.send('File uploaded');
     },
 
     locationDetails: (req, res, next) => {

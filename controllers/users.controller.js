@@ -31,7 +31,8 @@ module.exports = {
     register: (req, res, next) => {
         UserSchema.register(req.body)
             .then(function (user) {
-                res.render('users/login', { title: 'Login', loggedIn: true });
+                setUser(req, user);
+                res.redirect('/');
             })
             .catch((err) =>
                 setImmediate(() => {
