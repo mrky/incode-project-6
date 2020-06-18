@@ -1,7 +1,7 @@
 # Project 6: Location App
 Joint Group Project
 
-Ana Shibata, Jason David, Mark Kelly, Michelle Hickey
+Ana Shibata, Mark Kelly and Michelle Hickey
 
 ## MVC Pattern
 

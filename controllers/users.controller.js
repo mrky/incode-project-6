@@ -44,7 +44,7 @@ module.exports = {
     logout: (req, res, next) => {
         console.log('sessao ' + req.session.email);
         req.session.destroy(function (err) {
-            res.render('index', { loggedIn: false });
+            res.redirect('/');
         });
     },
 
