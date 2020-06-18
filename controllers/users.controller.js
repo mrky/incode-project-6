@@ -1,4 +1,6 @@
 const UserSchema = require('../models/user.model');
+const { setUser } = require('./auth.controllers');
+
 module.exports = {
     index: (req, res, next) => {
         res.render('users/login', {
@@ -9,9 +11,11 @@ module.exports = {
     login: (req, res, next) => {
         UserSchema.login(req.body.email, req.body.password)
             .then(function (user) {
-                req.session.email = user.email;
-                req.session.isAdmin = user.isAdmin;
-                res.render('index', { title: 'Login', loggedIn: true });
+                setUser(req, user);
+                // req.session.email = user.email;
+                // req.session.isAdmin = user.isAdmin;
+                // res.render('index', { title: 'Login', loggedIn: true });
+                res.redirect('/');
             })
             .catch((err) =>
                 setImmediate(() => {
