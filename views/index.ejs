@@ -1,4 +1,4 @@
-<%- include('partials/header'); %>
+<%- include(headerPartial); %>
 
 <div class="container-fluid py-4" id="banner">
     <div class="container text-light text-shadow">
@@ -7,9 +7,9 @@
         <% } %>
 
         <div class="form-inline flex-column-reverse flex-sm-row mb-3">
-            <input class="form-control flex-grow-1 shadow" id="search" name="search" type="search"
-                placeholder="Search" autocomplete="off" autofocus="autofocus" aria-label="Search locations">
-                <button class="btn btn-light" id="btnFilter" onfocusin="callDisplayLocations()">Filter</button> 
+            <input class="form-control flex-grow-1 shadow" id="search" name="search" type="search" placeholder="Search"
+                autocomplete="off" autofocus="autofocus" aria-label="Search locations">
+            <button class="btn btn-light" id="btnFilter" onfocusin="callDisplayLocations()">Filter</button>
             <!-- <select class="custom-select mb-2 mb-sm-0 shadow" id="location" name="location">
                 <option selected="selected" disabled="disabled">Select Location</option>
                 <option value="all">All</option>
@@ -23,20 +23,21 @@
     <div class="row">
         <% locations.forEach(location => { %>
 
-            <div class="col-12 col-lg-6 my-4 my-sm-5 px-4">
-                <div class="px-4 py-4 shadow-lg rounded text-shadow rgba-dark">
-                    <img class="d-block mx-auto float-sm-right ml-sm-3 mb-4 mb-lg-3 img-fluid shadow rounded"
-                        src="<%= /images/ %><%= location.name %><%= '.jpg' %>" alt="maldives">
-    
-                    <div class="mr-2">
-                        <h3 class="mt-2 word-break-all"><%= location.name %></h3>
-                        <p class="m-0"><%= location.description %></p>
-                    </div>
+        <div class="col-12 col-lg-6 my-4 my-sm-5 px-4">
+            <div class="px-4 py-4 shadow-lg rounded text-shadow rgba-dark">
+                <img class="d-block mx-auto float-sm-right ml-sm-3 mb-4 mb-lg-3 img-fluid shadow rounded"
+                    src="<%= /images/ %><%= location.name %><%= '.jpg' %>" alt="maldives">
+
+                <div class="mr-2">
+                    <h3 class="mt-2 word-break-all"><%= location.name %></h3>
+                    <p class="m-0"><%= location.description %></p>
                 </div>
             </div>
+        </div>
 
         <% }); %>
 
     </div>
 </div>
-<%- include('partials/footer'); %>
+
+<%- include(footerPartial); %>

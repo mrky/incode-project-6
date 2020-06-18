@@ -1,69 +1,78 @@
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
-const dbConnection = require('./db')
- 
-const LocationModel = new Schema({
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+const dbConnection = require('./db');
+
+const locationModel = new Schema({
     name: {
         type: String,
         require: true,
-        unique: true 
+        unique: true,
     },
+
     description: {
         type: String,
-        require: true
+        require: true,
     },
+
     image: {
         type: String,
         require: true,
     },
+
     recommendations: {
         type: Number,
-        require: false
+        require: false,
     },
+
     author: {
-        type: Schema.Types.ObjectId, 
+        type: Schema.Types.ObjectId,
         ref: 'users',
-        require: true
+        require: true,
     },
+
     approved: {
         type: Boolean,
         default: false,
-        require: true        
+        require: true,
     },
-    comments: [{
 
-        comment: {
-            type: String,
-            require: false
+    comments: [
+        {
+            comment: {
+                type: String,
+                require: false,
+            },
+            author: {
+                type: Schema.Types.ObjectId,
+                ref: 'users',
+                require: true,
+            },
         },
-        author: {
-            type: Schema.Types.ObjectId, 
-            ref: 'users',
-            require: true
-        },
-        
-    }]
-})
-LocationModel.index({name: 'text'});
-dbConnection.mongoose.model("locations", LocationModel)
-const Location = dbConnection.mongoose.model('locations')
+    ],
+});
 
-getLocations = (location = '') => { 
+LocationModel.index({ name: 'text' });
+dbConnection.mongoose.model('locations', locationModel);
+const Location = dbConnection.mongoose.model('locations');
+
+getLocations = (location = '') => {
     if (location == 'all') {
-        searchLocation = {}
+        searchLocation = {};
     } else {
-        console.log(location)
-        searchLocation = {   $text: { $search: `"\"${location}\"" ` } }
+        console.log(location);
+        searchLocation = { $text: { $search: `"\"${location}\"" ` } };
     }
-    
+
     return new Promise((resolve, reject) => {
         Location.find(searchLocation).then((location) => {
-            if (location == null) { reject(new Error('Location not found!')) }
+            if (location == null) {
+                reject(new Error('Location not found!'));
+            }
             resolve(location);
         });
     });
-}
+};
 
 module.exports = {
-    getLocations
-}
+    getLocations,
+};

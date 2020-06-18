@@ -1,3 +1,4 @@
+/* Mark's CSS */
 body {
     font-family: 'Josefin Sans', sans-serif;
     min-height: 100vh;
@@ -61,4 +62,201 @@ a {
     background-image: url('/images/sunset-1373171_1920.jpg');
     background-position: center;
     background-size: cover;
+}
+
+/* ------------------------------ */
+/* Michelle's CSS */
+/* ------------------------------ */
+
+/* body {
+    background-image: url('/images/vapour.png');
+} */
+
+.grid-container {
+    display: grid;
+    align-content: center;
+    grid-template-columns: auto auto auto;
+    border-radius: 15px;
+    grid-gap: 15px;
+    background-color: lightgrey;
+    padding: 20px;
+}
+
+.item {
+    background-color: rgba(233, 131, 182, 0.8);
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 15px;
+    /* until grid works*/
+    width: 45%;
+}
+
+.item1 {
+    /* background-color: blueviolet;*/
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 15px;
+    /* until grid works*/
+}
+
+#itemsContainer {
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+}
+
+.itemtitle {
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 10px 10px;
+    text-decoration: none;
+    font-size: 20px;
+    background-color: white;
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 25px;
+}
+
+.recommend {
+    display: inline-block;
+    width: 100%;
+    margin-top: 40px;
+    padding-top: 40px;
+    text-align: center;
+}
+
+.like,
+.dislike {
+    display: inline-block;
+    cursor: pointer;
+    margin: 10px;
+}
+
+.dislike:hover,
+.like:hover {
+    color: #2ebdd1;
+    transition: all 0.2s ease-in-out;
+    transform: scale(1.1);
+}
+
+.active {
+    color: #2ebdd1;
+}
+
+.itemp {
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 4px 6px;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+.pimage {
+    /*width: 50%; */
+    width: 300px;
+    height: 300px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+.images2 {
+    width: 758px;
+    height: 140;
+    display: block;
+}
+
+/* nav {
+    margin-top: 15px;
+    text-align: center;
+    background-color: black;
+    padding: 20px;
+} */
+
+.center {
+    text-align: center;
+    color: white;
+}
+
+.stars {
+    background-color: grey;
+    font-size: 25px;
+    border: 1px black;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    padding: 10px;
+    text-align: center;
+}
+
+/* .form-group {
+    font-size: 25px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 5px;
+    background-color: white;
+} */
+
+/* .form-group,
+a {
+    background-color: white;
+    margin-left: auto;
+    margin-right: auto;
+} */
+
+.btn-primary {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100px;
+    border-radius: 25px;
+    padding: 15px;
+}
+
+.row justify-content-md-center {
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+    padding: 15px;
+}
+
+.commentsSection {
+    background-color: pink;
+    padding: 15px;
+    margin: 15px;
+    color: black;
+    border-radius: 25px;
+}
+
+.words {
+    background-color: ivory;
+    padding: 10px;
+    border-radius: 25px;
+}
+
+#para {
+    background-color: ivory;
+    padding: 10px;
+    border-radius: 25px;
+}
+
+#info {
+    border-radius: 25px;
+    width: 100px;
+}
+
+.pb-cmnt-container {
+    font-family: roberto;
+    margin-top: 100px;
+}
+
+.pb-cmnt-textarea {
+    resize: none;
+    padding: 20px;
+    height: 150px;
+    width: 100%;
+    border: 1px solid darkgrey;
 }

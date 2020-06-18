@@ -3,10 +3,10 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const bodyParser = require('body-parser')
-const session = require('express-session')
-const flash = require('connect-flash')
-const db = require('./models/db')
+const bodyParser = require('body-parser');
+const session = require('express-session');
+const flash = require('connect-flash');
+const db = require('./models/db');
 
 const indexRouter = require('./routes/routes.index');
 const usersRouter = require('./routes/routes.users');
@@ -15,25 +15,36 @@ const locationsRouter = require('./routes/routes.locations');
 const app = express();
 
 //session
-app.use(session({
-    secret: 'project6', //chave para gerar a chave da sessao. 
-    resave: true, // primeiro ressalva o cookie de sessão a cada requisição
-    saveUninitialized: true //salva dados das sessoes anonimas
-}))
-app.use(flash())
+app.use(
+    session({
+        secret: 'project6', //chave para gerar a chave da sessao.
+        resave: true, // primeiro ressalva o cookie de sessão a cada requisição
+        saveUninitialized: true, //salva dados das sessoes anonimas
+    })
+);
+app.use(flash());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-app.use(bodyParser.json()) ;
-app.use(bodyParser.urlencoded({extended: false}))
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '/public')));
+
+// Create local variables for absolute path names to use in
+// ejs include function
+app.use(function (req, res, next) {
+    res.locals.loggedIn = req.session.loggedIn;
+    res.locals.headerPartial = __dirname + '/views/partials/header';
+    res.locals.footerPartial = __dirname + '/views/partials/footer';
+    next();
+});
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
