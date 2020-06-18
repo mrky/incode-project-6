@@ -51,7 +51,7 @@ const locationModel = new Schema({
     ],
 });
 
-LocationModel.index({ name: 'text' });
+locationModel.index({ name: 'text' });
 dbConnection.mongoose.model('locations', locationModel);
 const Location = dbConnection.mongoose.model('locations');
 
