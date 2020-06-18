@@ -18,7 +18,7 @@ const locationModel = new Schema({
         type: String,
         require: true,
     },
-    
+
     recommendations: {
         type: Number,
         require: false,
@@ -51,12 +51,20 @@ const locationModel = new Schema({
     ],
 });
 
+LocationModel.index({ name: 'text' });
 dbConnection.mongoose.model('locations', locationModel);
 const Location = dbConnection.mongoose.model('locations');
 
-getLocations = (name = '') => {
+getLocations = (location = '') => {
+    if (location == 'all') {
+        searchLocation = {};
+    } else {
+        console.log(location);
+        searchLocation = { $text: { $search: `"\"${location}\"" ` } };
+    }
+
     return new Promise((resolve, reject) => {
-        Location.find().then((location) => {
+        Location.find(searchLocation).then((location) => {
             if (location == null) {
                 reject(new Error('Location not found!'));
             }

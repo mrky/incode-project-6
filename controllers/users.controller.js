@@ -12,9 +12,6 @@ module.exports = {
         UserSchema.login(req.body.email, req.body.password)
             .then(function (user) {
                 setUser(req, user);
-                // req.session.email = user.email;
-                // req.session.isAdmin = user.isAdmin;
-                // res.render('index', { title: 'Login', loggedIn: true });
                 res.redirect('/');
             })
             .catch((err) =>

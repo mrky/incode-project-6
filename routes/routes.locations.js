@@ -26,7 +26,7 @@ const {
 const { verifyUser } = require('../controllers/auth.controllers');
 
 // GET create new location page.
-router.get('/', displayLocations);
+router.get('/display/:location', displayLocations);
 
 router.get('/create', verifyUser, displayCreateNew);
 

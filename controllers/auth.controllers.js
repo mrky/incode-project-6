@@ -1,5 +1,6 @@
 module.exports = {
     setUser: (req, user) => {
+        req.session.userId = user._id;
         req.session.email = user.email;
         req.session.loggedIn = true;
         req.session.isAdmin = user.isAdmin;

@@ -5,7 +5,7 @@ const path = require('path');
 
 module.exports = {
     displayLocations: (req, res, next) => {
-        LocationSchema.getLocations(req.body)
+        LocationSchema.getLocations(req.params.location)
             .then(function (locations) {
                 console.log('Location: ' + locations);
                 res.render('index', {
