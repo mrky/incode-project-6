@@ -9,6 +9,7 @@ module.exports = {
     login: (req, res, next) => {
         UserSchema.login(req.body.email, req.body.password)
             .then(function (user) {
+                req.session.id = user._id;
                 req.session.email = user.email;
                 req.session.isAdmin = user.isAdmin;
                 res.render('index', { title: 'Login', loggedIn: true });

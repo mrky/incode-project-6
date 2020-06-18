@@ -46,11 +46,11 @@ register = (user) => {
         console.log('Password and Re-enter password do not match!')
     } else {
         const newUser = {
-            firstName: user.firstName,
+            firstName: user.firstname,
             surname: user.surname,
             email: user.email,
             password: user.password,
-            isAdmin: true
+            isAdmin: false
         }
 
         return new Promise((resolve, reject) => {

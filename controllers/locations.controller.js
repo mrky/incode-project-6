@@ -1,8 +1,7 @@
 const LocationSchema = require('../models/location.model')
 module.exports = {
     displayLocations: (req, res, next) => {
-        LocationSchema.getLocations(req.body).then(function(locations) {   
-            console.log('Location: '+locations)
+        LocationSchema.getLocations(req.params.location).then(function(locations) {   
             res.render('index', {title:'Locations', locations : locations})
         }).catch((err) => setImmediate(() => {console.log(err); res.status(500).send(err.toString())}));          
     },    

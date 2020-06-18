@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 const dbConnection = require('./db')
-
+ 
 const LocationModel = new Schema({
     name: {
         type: String,
@@ -44,12 +44,20 @@ const LocationModel = new Schema({
         
     }]
 })
+LocationModel.index({name: 'text'});
 dbConnection.mongoose.model("locations", LocationModel)
 const Location = dbConnection.mongoose.model('locations')
 
-getLocations = (name = '') => {
+getLocations = (location = '') => { 
+    if (location == 'all') {
+        searchLocation = {}
+    } else {
+        console.log(location)
+        searchLocation = {   $text: { $search: `"\"${location}\"" ` } }
+    }
+    
     return new Promise((resolve, reject) => {
-        Location.find().then((location) => {
+        Location.find(searchLocation).then((location) => {
             if (location == null) { reject(new Error('Location not found!')) }
             resolve(location);
         });
