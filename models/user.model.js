@@ -25,7 +25,7 @@ const UserModel = new Schema({
         type: String,
         required: true,
     },
-    
+
     isAdmin: {
         type: Boolean,
         default: false,
@@ -39,10 +39,10 @@ login = (email, password) => {
     return new Promise((resolve, reject) => {
         User.findOne({ email: email }).then((user) => {
             if (user == null) {
-                reject(new Error('E-mail not found. Please check you email!'));
+                reject(new Error('Email not found. Please check your email!'));
             }
             if (user.password != password) {
-                reject(new Error('Your password is invalid!'));
+                reject(new Error('Your passwords do not match!'));
             }
             resolve(user);
         });

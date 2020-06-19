@@ -5,74 +5,82 @@ const dbConnection = require('./db');
 const locationModel = new Schema({
     name: {
         type: String,
-        require: true,
-        unique: true,
+        required: true,
     },
 
     description: {
         type: String,
-        require: true,
+        required: true,
     },
 
-    image: {
+    imagePath: {
         type: String,
-        require: true,
+        required: true,
     },
 
-    recommendations: {
-        type: Number,
-        require: false,
-    },
-
-    author: {
+    createdBy: {
         type: Schema.Types.ObjectId,
         ref: 'users',
-        require: true,
+        required: true,
     },
 
     approved: {
         type: Boolean,
         default: false,
-        require: true,
+        required: true,
     },
 
-    comments: [
-        {
-            comment: {
-                type: String,
-                require: false,
-            },
+    recommendations: {
+        type: Number,
+        required: false,
+    },
+
+    comments: {
+        type: new Schema({
+            comment: { type: String, required: true },
             author: {
                 type: Schema.Types.ObjectId,
                 ref: 'users',
-                require: true,
+                required: true,
             },
-        },
-    ],
+        }),
+        required: false,
+    },
 });
 
 locationModel.index({ name: 'text' });
-dbConnection.mongoose.model('locations', locationModel);
-const Location = dbConnection.mongoose.model('locations');
 
-getLocations = (location = '') => {
-    if (location == 'all') {
-        searchLocation = {};
-    } else {
-        console.log(location);
-        searchLocation = { $text: { $search: `"\"${location}\"" ` } };
-    }
-
-    return new Promise((resolve, reject) => {
-        Location.find(searchLocation).then((location) => {
-            if (location == null) {
-                reject(new Error('Location not found!'));
-            }
-            resolve(location);
-        });
-    });
-};
+let Location = dbConnection.mongoose.model('locations', locationModel);
 
 module.exports = {
-    getLocations,
+    getLocations: (location = '') => {
+        if (location == 'all') {
+            searchLocation = {};
+        } else {
+            console.log(location);
+            searchLocation = { $text: { $search: `"\"${location}\"" ` } };
+        }
+
+        return new Promise((resolve, reject) => {
+            Location.find(searchLocation).then((location) => {
+                if (location == null) {
+                    reject(new Error('Location not found!'));
+                }
+                resolve(location);
+            });
+        });
+    },
+
+    createLocation: (location) => {
+        return new Promise((resolve, reject) => {
+            Location(location).save(function (err, uploaded) {
+                if (err) {
+                    console.log(err);
+                    reject(err);
+                }
+                console.log('model', true);
+                resolve(uploaded);
+            });
+        });
+    },
 };

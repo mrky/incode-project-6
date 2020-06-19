@@ -9,7 +9,7 @@ module.exports = {
             .then(function (locations) {
                 console.log('Location: ' + locations);
                 res.render('index', {
-                    title: 'Locations',
+                    title: `Results for "${req.params.location}"`,
                     locations: locations,
                 });
             })
@@ -27,52 +27,73 @@ module.exports = {
     },
 
     createNewLocation: (req, res, next) => {
+        function unlink(path) {
+            fs.unlink(path, (err) => {
+                if (err) throw err;
+            });
+        }
+
         let image = req.file;
+        debug('image is:', image);
+
         if (!image) {
             const error = new Error('Please upload a file');
             error.httpStatusCode = 400;
             return next(error);
         }
-        debug('image is', image);
-        let { name, description } = req.body;
-        debug(`name is '${name}', description is '${description}'`);
+
+        // TODO
+        // get createdBy from session
+        let { name, description, createdBy } = req.body;
+        debug(`name is: '${name}', description: is '${description}, createdBy is: ${createdBy}'`);
         debug(JSON.stringify(req.file));
         let ext = path.extname(image.originalname).toLowerCase();
-        debug(ext);
+        debug('ext is:', ext);
         let mimetype = image.mimetype.split('/')[1];
-        debug(mimetype);
+        debug('mimetpye is:', mimetype);
 
         if (name === '' || description === '' || image === undefined) {
             return res.send('Please fill out form completely.');
         } else if (mimetype !== 'jpeg' && mimetype !== 'png') {
-            return fs.unlink(image.path, (err) => {
-                if (err) throw err;
-                res.send('Only jpeg or png files may be uploaded.');
-            });
+            unlink(image.path);
+            return res.send('Only jpg or png files may be uploaded.');
         }
 
         if (ext !== '.jpg') {
             ext = `.${mimetype}`;
         }
 
-        // todo
         let tempPath = req.file.path;
-        debug(tempPath);
-        let rootPath = path.parse(__dirname).root;
-        let targetPath = path.join('./public/images/uploads/', req.file.filename.toString() + ext);
+        debug('tempPath is:', tempPath);
+        
+        let imagePath = '/images/uploads/' + req.file.filename.toString() + ext;
+        let targetPath = path.join('./public', imagePath);
 
-        fs.rename(tempPath, targetPath, (err) => {
-            if (err) throw err;
+        let location = {
+            name,
+            description,
+            imagePath,
+            createdBy,
+        };
 
-            debug('file uploaded to', targetPath);
+        LocationSchema.createLocation(location)
+            .then((uploaded) => {
+                debug('uploaded', uploaded);
+                fs.rename(tempPath, targetPath, (err) => {
+                    if (err) throw err;
+                    debug('File uploaded to', targetPath);
+                });
 
-            return res
-                .status(200)
-                .contentType('text/plain')
-                .end('File uploaded!');
-        });
-
-        // res.send('File uploaded');
+                return res
+                    .status(200)
+                    .contentType('text/plain')
+                    .end(
+                        `Successfully created the location '${uploaded.name}'`
+                    );
+            })
+            .catch((err) => {
+                return res.json(err);
+            });
     },
 
     locationDetails: (req, res, next) => {

@@ -6,10 +6,11 @@
         <%- include('partials/title', {title}); %>
         <% } %>
 
-        <div class="form-inline flex-column-reverse flex-sm-row mb-3">
+        <div class="form-inline mb-3">
             <input class="form-control flex-grow-1 mr-sm-1 shadow" id="search" name="search" type="search"
                 placeholder="Search" autocomplete="off" autofocus="autofocus" aria-label="Search locations">
-            <button class="btn btn-light" id="btnFilter" onfocusin="callDisplayLocations()">Filter</button>
+            <button class="btn btn-light mt-2 mt-sm-0 flex-grow-1 flex-sm-grow-0 flex-sm-shrink-1 shadow" id="btnFilter"
+                onfocusin="callDisplayLocations()">Filter</button>
             <!-- <select class="custom-select mb-2 mb-sm-0 shadow" id="location" name="location">
                 <option selected="selected" disabled="disabled">Select Location</option>
                 <option value="all">All</option>
@@ -23,10 +24,10 @@
     <div class="row">
         <% locations.forEach(location => { %>
 
-        <div class="col-12 col-lg-6 my-4 my-sm-5 px-4">
+        <div class="col-12 col-sm-9 mx-auto col-lg-6 my-4 my-sm-5 px-4">
             <div class="h-100 px-4 py-4 shadow-lg rounded text-shadow bg-rgba-dark">
-                <img class="d-block mx-auto float-sm-right ml-sm-3 mb-4 mb-lg-3 img-fluid shadow rounded"
-                    src="<%= /images/ %><%= location.name %><%= '.jpg' %>" alt="<%= location.name %>">
+                <img class="d-block mx-auto mb-4 img-fluid shadow rounded loc-card-img"
+                    src="<%= location.imagePath %>" alt="<%= location.name %>">
 
                 <div class="mr-2">
                     <h3 class="mt-2 word-break-all"><%= location.name %></h3>

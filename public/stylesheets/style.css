@@ -64,6 +64,35 @@ a {
     background-size: cover;
 }
 
+.loc-card-img {
+    height: 40vw;
+    object-fit: cover;
+}
+
+@media (min-width: 576px) {
+    .loc-card-img {
+        height: 30vw;
+    }
+}
+
+@media (min-width: 768px) {
+    .loc-card-img {
+        height: 30vw;
+    }
+}
+
+@media (min-width: 992px) {
+    .loc-card-img {
+        height: 20vw;
+    }
+}
+
+@media (min-width: 1200px) {
+    .loc-card-img {
+        height: 20vw;
+    }
+}
+
 /* ------------------------------ */
 /* Michelle's CSS */
 /* ------------------------------ */
