@@ -65,13 +65,13 @@ a {
 }
 
 .loc-card-img {
-    height: 40vw;
-    object-fit: cover;
+    object-fit: contain;
 }
 
 @media (min-width: 576px) {
     .loc-card-img {
         height: 30vw;
+        object-fit: cover;
     }
 }
 

@@ -53,8 +53,8 @@ locationModel.index({ name: 'text' });
 let Location = dbConnection.mongoose.model('locations', locationModel);
 
 module.exports = {
-    getLocations: (location = '') => {
-        if (location == 'all') {
+    getLocations: (location = 'all') => {
+        if (location === 'all') {
             searchLocation = {};
         } else {
             console.log(location);
