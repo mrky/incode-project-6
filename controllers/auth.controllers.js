@@ -7,7 +7,7 @@ module.exports = {
     },
 
     verifyUser: (req, res, next) => {
-        if (req.session.loggedIn !== true) {
+        if (req.session.loggedIn === true) {
             next();
         } else {
             return res.sendStatus(403);

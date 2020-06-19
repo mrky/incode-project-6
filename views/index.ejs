@@ -1,12 +1,12 @@
 <%- include(headerPartial); %>
 
 <div class="container-fluid py-4" id="banner">
-    <div class="container text-light text-shadow">
+    <div class="container text-light">
         <% if (typeof title !== 'undefined') { %>
         <%- include('partials/title', {title}); %>
         <% } %>
 
-        <div class="form-inline mb-3">
+        <div class="form-inline mb-4 text-shadow">
             <input class="form-control flex-grow-1 mr-sm-1 shadow" id="search" name="search" type="search"
                 placeholder="Search" autocomplete="off" autofocus="autofocus" aria-label="Search locations">
             <button class="btn btn-light mt-2 mt-sm-0 flex-grow-1 flex-sm-grow-0 flex-sm-shrink-1 shadow" id="btnFilter"
@@ -16,6 +16,12 @@
                 <option value="all">All</option>
             </select> -->
         </div>
+
+        <% if (typeof loggedIn !== 'undefined' && loggedIn === true) { %>
+        <div class="text-center">
+            <a class="btn btn-outline-light mt-4 shadow-sm" href="/locations/create">Create location</a>
+        </div>
+        <% } %>
     </div>
 </div>
 
