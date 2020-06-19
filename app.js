@@ -37,6 +37,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '/public')));
 
+// Store session logged in variable in locals
 // Create local variables for absolute path names to use in
 // ejs include function
 app.use(function (req, res, next) {

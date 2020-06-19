@@ -22,8 +22,9 @@ module.exports = {
     },
 
     displayCreateNew: (req, res, next) => {
-        // todo
-        res.send('respond with a resource');
+        res.render('locations/create', {
+            title: 'Create Location',
+        });
     },
 
     createNewLocation: (req, res, next) => {
@@ -42,10 +43,11 @@ module.exports = {
             return next(error);
         }
 
-        // TODO
-        // get createdBy from session
-        let { name, description, createdBy } = req.body;
-        debug(`name is: '${name}', description: is '${description}, createdBy is: ${createdBy}'`);
+        let { name, description } = req.body;
+        let createdBy = req.session.userId;
+        debug('name is', name);
+        debug('description is', description);
+        debug('createdBy is', createdBy);
         debug(JSON.stringify(req.file));
         let ext = path.extname(image.originalname).toLowerCase();
         debug('ext is:', ext);
@@ -65,7 +67,7 @@ module.exports = {
 
         let tempPath = req.file.path;
         debug('tempPath is:', tempPath);
-        
+
         let imagePath = '/images/uploads/' + req.file.filename.toString() + ext;
         let targetPath = path.join('./public', imagePath);
 
@@ -92,6 +94,7 @@ module.exports = {
                     );
             })
             .catch((err) => {
+                unlink(image.path);
                 return res.json(err);
             });
     },

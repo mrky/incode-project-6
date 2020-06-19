@@ -1,0 +1,56 @@
+<%- include(headerPartial) %>
+
+<div class="container mt-4 px-4">
+    <div class="col-12 col-md-10 col-lg-8 mx-auto mb-5">
+        <% if (typeof title !== 'undefined') { %>
+        <%- include('../partials/title', {title}); %>
+        <% } %>
+
+        <div class="p-4 bg-rgba-dark shadow rounded">
+            <form class="my-2" method="post" enctype="multipart/form-data">
+                <!-- <div class="form-row">
+                <div class="col-md-4 mb-3">
+                    <label for="email">Location name</label>
+                    <input type="email" name="email" class="form-control shadow-sm" id="email" required="required"
+                        autofocus="autofocus">
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="image">Upload file</label>
+                    <input type="file" name="image" class="form-control-file" id="image" required="required">
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="customFile">
+                        <label class="custom-file-label" for="customFile">Choose file</label>
+                    </div>
+                </div>
+            </div> -->
+
+                <div class="form-group">
+                    <label for="name">Location name</label>
+                    <input type="text" name="name" class="form-control shadow-sm" id="name" required="required"
+                        autofocus="autofocus">
+                </div>
+
+                <div class="form-group my-5">
+                    <label for="image">Upload an image</label>
+                    <input type="file" name="image" class="form-control-file mt-1 mb-3" id="image" aria-describedby="imageHelpBlock">
+                    <pre id="imageHelpBlock"
+                        class="form-text text-white mt-1">Only .jpg or .png files are permitted.</pre>
+                </div>
+
+                <div class="form-group mb-4">
+                    <label for="description">Description</label>
+                    <textarea name="description" id="description" class="w-100 p-2"
+                        placeholder="Enter location description" required="required"></textarea>
+                </div>
+
+                <div class="pt-3 text-center">
+                    <button type="submit" class="btn btn-light shadow-sm">Submit Location</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<%- include(footerPartial); %>

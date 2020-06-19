@@ -62,12 +62,16 @@ module.exports = {
         }
 
         return new Promise((resolve, reject) => {
-            Location.find(searchLocation).then((location) => {
-                if (location == null) {
-                    reject(new Error('Location not found!'));
-                }
-                resolve(location);
-            });
+            Location.find(searchLocation)
+                .then((location) => {
+                    if (location == null) {
+                        reject(new Error('Location not found!'));
+                    }
+                    resolve(location);
+                })
+                .catch((err) => {
+                    reject(err);
+                });
         });
     },
 
