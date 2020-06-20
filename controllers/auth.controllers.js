@@ -13,4 +13,12 @@ module.exports = {
             return res.sendStatus(403);
         }
     },
+
+    verifyAdmin: (req, res, next) => {
+        if (req.session.isAdmin === true) {
+            next();
+        } else {
+            return res.sendStatus(403);
+        }
+    },
 };

@@ -25,7 +25,7 @@ const {
     saveValidation,
 } = require('../controllers/locations.controller');
 
-const { verifyUser } = require('../controllers/auth.controllers');
+const { verifyUser, verifyAdmin } = require('../controllers/auth.controllers');
 
 // GET create new location page.
 router.get('/display/:location', displayLocations);
@@ -35,9 +35,9 @@ router.get('/create', verifyUser, displayCreateNew);
 // req.file is the `image` file
 router.post('/create', [verifyUser, upload.single('image')], createNewLocation);
 
-router.get('/validate', verifyUser, displayLocationValidate);
+router.get('/validate', verifyAdmin, displayLocationValidate);
 
-router.post('/validate/:id/:validate', verifyUser, saveValidation);
+router.post('/validate/:id/:validate', verifyAdmin, saveValidation);
 
 router.get('/id-:id', locationDetails);
 

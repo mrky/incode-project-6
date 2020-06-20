@@ -42,6 +42,7 @@ app.use(express.static(path.join(__dirname, '/public')));
 // ejs include function
 app.use(function (req, res, next) {
     res.locals.loggedIn = req.session.loggedIn;
+    res.locals.isAdmin = req.session.isAdmin;
     res.locals.headerPartial = __dirname + '/views/partials/header';
     res.locals.footerPartial = __dirname + '/views/partials/footer';
     next();

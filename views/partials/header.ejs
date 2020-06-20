@@ -19,7 +19,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
     <link rel="manifest" href="/favicon/site.webmanifest">
-    
+
     <script src="/javascripts/main.js"></script>
 
     <link rel="stylesheet" href="/stylesheets/style.css">
@@ -27,21 +27,22 @@
 
 <body class="d-flex flex-column bg-dark text-light">
     <header>
-        <nav class="navbar navbar-expand navbar-dark d-flex justify-content-between text-shadow">
-            <a class="navbar-brand" href="/"><i class="fa fa-map-o" aria-hidden="true"></i> Locations</a>
+        <nav class="navbar navbar-expand navbar-dark d-flex flex-column flex-sm-row justify-content-between text-shadow">
+            <a class="navbar-brand align-self-start" href="/"><i class="fa fa-map-o" aria-hidden="true"></i> Locations</a>
 
-            <div class="navbar-nav">
+            <div class="navbar-nav flex-sm-row">
                 <% if (typeof loggedIn !== 'undefined' && loggedIn === true) { %>
+                    <% if (typeof loggedIn !== 'undefined' && isAdmin === true) { %>
+                    <a class="navbar-item nav-link active" href="/locations/validate"><i class="fa fa-check" aria-hidden="true"></i> Approve</a>
+                    <% } %>
                 <a class="navbar-item nav-link active" href="/users/profile"><i class="fa fa-user" aria-hidden="true"></i> Profile</a>
                 <a class="navbar-item nav-link active" href="/users/logout"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
-                <a class="navbar-item nav-link active" href="/locations/validate"><i class="fa fa-check" aria-hidden="true"></i> Validate Location</a>
                 <% } else { %>
-
                 <a class="navbar-item nav-link active" href="/users/login"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a>
                 <a class="navbar-item nav-link active" href="/users/register"><i class="fa fa-user-plus" aria-hidden="true"></i> Register</a>
                 <% } %>
             </div>
-        </nav> 
+        </nav>
     </header>
 
     <div class="container-fluid flex-grow-1 p-0">
