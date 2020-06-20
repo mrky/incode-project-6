@@ -1,3 +1,9 @@
-<h1><%= message %></h1>
-<h2><%= error.status %></h2>
-<pre><%= error.stack %></pre>
+<%- include(headerPartial); %>
+<div class="container my-4">
+    <h1><%= message %></h1>
+    <h2><%= error.status %></h2>
+    <% if (error.stack) { %>
+    <pre class="bg-dark text-light my-4 px-3 py-4"><%= error.stack %></pre>
+    <% } %>
+</div>
+<%- include(footerPartial); %>

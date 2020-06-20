@@ -1,21 +1,27 @@
 <%- include(headerPartial); %>
 
 <div class="container-fluid py-4" id="banner">
-    <div class="container text-light text-shadow">
+    <div class="container text-light">
         <% if (typeof title !== 'undefined') { %>
         <%- include('partials/title', {title}); %>
         <% } %>
 
-        <div class="form-inline mb-3">
+        <div class="form-inline mb-4">
             <input class="form-control flex-grow-1 mr-sm-1 shadow" id="search" name="search" type="search"
-                placeholder="Search" autocomplete="off" autofocus="autofocus" aria-label="Search locations">
+                placeholder="Search" autocomplete="off" aria-label="Search locations">
             <button class="btn btn-light mt-2 mt-sm-0 flex-grow-1 flex-sm-grow-0 flex-sm-shrink-1 shadow" id="btnFilter"
-                onfocusin="callDisplayLocations()">Filter</button>
+                onfocusin="callDisplayLocations()">Search</button>
             <!-- <select class="custom-select mb-2 mb-sm-0 shadow" id="location" name="location">
                 <option selected="selected" disabled="disabled">Select Location</option>
                 <option value="all">All</option>
             </select> -->
         </div>
+
+        <% if (typeof loggedIn !== 'undefined' && loggedIn === true) { %>
+        <div class="text-center">
+            <a class="btn btn-outline-light mt-4 shadow-sm" href="/locations/create">Create Location</a>
+        </div>
+        <% } %>
     </div>
 </div>
 
@@ -24,14 +30,18 @@
     <div class="row">
         <% locations.forEach(location => { %>
 
-        <div class="col-12 col-sm-9 mx-auto col-lg-6 my-4 my-sm-5 px-4">
+        <div class="col-12 col-sm-9 mx-auto col-lg-6 mx-lg-0 my-4 my-sm-5 px-4 loc-card">
             <div class="h-100 px-4 py-4 shadow-lg rounded text-shadow bg-rgba-dark">
-                <img class="d-block mx-auto mb-4 img-fluid shadow rounded loc-card-img"
-                    src="<%= location.imagePath %>" alt="<%= location.name %>">
+                <div class="pt-1 pb-3">
+                    <a href="/locations/id-<%= location._id %>">
+                        <img class="d-block mx-auto img-fluid shadow rounded loc-card-img"
+                            src="<%= location.imagePath %>" alt="<%= location.name %>">
+                    </a>
+                </div>
 
-                <div class="mr-2">
-                    <h3 class="mt-2 word-break-all"><%= location.name %></h3>
-                    <p class="m-0"><%= location.description %></p>
+                <div class="mt-4 pb-2">
+                    <h3 class="mt-2 mb-3"><%= location.name %></h3>
+                    <p class="m-0 mx-1"><%= location.description %></p>
                 </div>
             </div>
         </div>

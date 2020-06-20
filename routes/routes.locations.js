@@ -22,7 +22,7 @@ const {
     locationDetails,
     displayLocations,
     displayLocationValidate,
-    saveValidation
+    saveValidation,
 } = require('../controllers/locations.controller');
 
 const { verifyUser } = require('../controllers/auth.controllers');
@@ -39,7 +39,10 @@ router.get('/validate', verifyUser, displayLocationValidate);
 
 router.post('/validate/:id/:validate', verifyUser, saveValidation);
 
-router.get('/:id', verifyUser, locationDetails);
+router.get('/id-:id', locationDetails);
 
+router.get('/', (req, res, next) => {
+    res.redirect('/');
+});
 
 module.exports = router;
