@@ -100,4 +100,33 @@ module.exports = {
             });
         });
     },
+
+    getLocationsToValidate: () => {
+        console.log('retorna somente o que tem para ser validado');
+        return new Promise((resolve, reject) => {
+            Location.find({ approved: false }).then((location) => {
+                if (location == null) {
+                    reject(new Error('There are no locations to validate!'));
+                }
+                resolve(location);
+            });
+        });
+    },
+
+    validateLocation: (id, approved) => {
+        return new Promise((resolve, reject) => {
+            Location.update({ _id: id }, { $set: { approved: approved } }).then(
+                (result) => {
+                    if (result.nModified == 0) {
+                        reject(
+                            new Error(
+                                'Location was not  are no locations to validate!'
+                            )
+                        );
+                    }
+                    resolve(approved);
+                }
+            );
+        });
+    },
 };

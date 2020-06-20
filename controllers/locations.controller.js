@@ -117,4 +117,33 @@ module.exports = {
                 next(error);
             });
     },
+
+    displayLocationValidate: (req, res, next) => {
+        LocationSchema.getLocationsToValidate(req.params.location)
+            .then(function (locations) {
+                res.render('locations/validate', {
+                    title: `Results for "${req.params.location}"`,
+                    locations: locations,
+                });
+            })
+            .catch((err) =>
+                setImmediate(() => {
+                    console.log(err);
+                    res.status(500).send(err.toString());
+                })
+            );
+    },
+
+    saveValidation: (req, res, next) => {
+        LocationSchema.validateLocation(req.params.id, req.params.validate)
+            .then(function (validate) {
+                res.send(validate);
+            })
+            .catch((err) =>
+                setImmediate(() => {
+                    console.log(err);
+                    res.status(500).send(err.toString());
+                })
+            );
+    },
 };
