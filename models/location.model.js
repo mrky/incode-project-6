@@ -53,8 +53,8 @@ locationModel.index({ name: 'text' });
 let Location = dbConnection.mongoose.model('locations', locationModel);
 
 module.exports = {
-    getLocations: (location = '') => {
-        if (location == 'all') {
+    getLocations: (location = 'all') => {
+        if (location === 'all') {
             searchLocation = {};
         } else {
             console.log(location);
@@ -62,12 +62,16 @@ module.exports = {
         }
 
         return new Promise((resolve, reject) => {
-            Location.find(searchLocation).then((location) => {
-                if (location == null) {
-                    reject(new Error('Location not found!'));
-                }
-                resolve(location);
-            });
+            Location.find(searchLocation)
+                .then((location) => {
+                    if (location == null) {
+                        reject(new Error('Location not found!'));
+                    }
+                    resolve(location);
+                })
+                .catch((err) => {
+                    reject(err);
+                });
         });
     },
 
@@ -83,4 +87,28 @@ module.exports = {
             });
         });
     },
+
+    getLocationsToValidate: () => {
+        console.log('retorna somente o que tem para ser validado')
+        return new Promise((resolve, reject) => {            
+            Location.find({approved : false}).then((location) => {
+                if (location == null) {
+                    reject(new Error('There are no locations to validate!'));
+                }
+                resolve(location);
+            });
+        });
+    },
+
+    validateLocation: (id, approved) => {
+        return new Promise((resolve, reject) => {
+            Location.update({_id: id}, {$set: {approved : approved} }).then((result) => {
+                if (result.nModified == 0) {
+                    reject(new Error('Location was not  are no locations to validate!'));
+                }
+                resolve(approved)
+            });
+        });
+    },
+
 };
