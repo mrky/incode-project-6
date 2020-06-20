@@ -87,4 +87,17 @@ module.exports = {
             });
         });
     },
+
+    getLocation: (id) => {
+        return new Promise((resolve, reject) => {
+            Location.findById(id, function (err, location) {
+                if (err) {
+                    console.log(err);
+                    reject(err);
+                }
+                console.log('getLocation', location);
+                resolve(location);
+            });
+        });
+    },
 };

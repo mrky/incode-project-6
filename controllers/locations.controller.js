@@ -100,8 +100,21 @@ module.exports = {
     },
 
     locationDetails: (req, res, next) => {
-        // todo
-        // res.send('respond with a resource');
-        res.render('locations/details');
+        // TODO
+        let { id } = req.params;
+        debug('location id:', id);
+        LocationSchema.getLocation(id)
+            .then((location) => {
+                res.render('locations/details', {
+                    title: location.name,
+                    location,
+                });
+            })
+            .catch((err) => {
+                let error = {
+                    message: 'Location not found.',
+                };
+                next(error);
+            });
     },
 };

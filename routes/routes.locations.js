@@ -33,6 +33,10 @@ router.get('/create', verifyUser, displayCreateNew);
 // req.file is the `image` file
 router.post('/create', [verifyUser, upload.single('image')], createNewLocation);
 
-router.get('/:id', verifyUser, locationDetails);
+router.get('/id-:id', locationDetails);
+
+router.get('/', (req, res, next) => {
+    res.redirect('/');
+});
 
 module.exports = router;
