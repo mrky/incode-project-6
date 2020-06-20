@@ -3,32 +3,33 @@
 <div class="container-fluid px-5 mt-4">
     <div class="row px-3">
 
-        <div class="col-12 mx-auto p-5 clearfix bg-rgba-dark shadow rounded mb-5">
-            <% if (typeof title !== 'undefined') { %>
-            <div class="">
-                <%- include('../partials/title', {title}); %>
+        <div class="col-lg-11 mx-auto p-0">
+            <div class="col-12 mx-auto p-5 clearfix bg-rgba-dark shadow rounded mb-5">
+                <% if (typeof title !== 'undefined') { %>
+                <div class="">
+                    <%- include('../partials/title', {title}); %>
+                </div>
+                <% } %>
+                <div class="mt-2 mb-5 ml-5 mr-2 pb-5 float-right mw-50vw">
+                    <img class="img-fluid d-block mx-auto shadow" src="<%= location.imagePath %>"
+                        alt="<%= location.name %>">
+                </div>
+                <div class="p-2 mb-2">
+                    <p class="font-size-125 mb-0"><%= location.description %></p>
+                </div>
+            </div>
+
+
+            <% if (loggedIn === true) { %>
+            <div class="my-5 mx-auto text-center font-size-2 text-shadow">
+                Would you recommend <%= location.name %>?
+                <div>
+                    <i class="fa fa-thumbs-up fa-2x m-3 like" aria-hidden="true"></i>
+                    <i class="fa fa-thumbs-down fa-2x m-3 dislike" aria-hidden="true"></i>
+                </div>
             </div>
             <% } %>
-            <div class="mt-2 mb-5 ml-5 mr-2 pb-5 float-right mw-50vw">
-                <img class="img-fluid d-block mx-auto shadow" src="<%= location.imagePath %>"
-                    alt="<%= location.name %>">
-            </div>
-            <div class="p-2 mb-2">
-                <p class="font-size-125 mb-0"><%= location.description %></p>
-            </div>
         </div>
-
-
-        <% if (loggedIn === true) { %>
-        <div class="my-5 mx-auto text-center font-size-2 text-shadow">
-            Would you recommend <%= location.name %>?
-            <div>
-                <i class="fa fa-thumbs-up fa-2x m-3 like" aria-hidden="true"></i>
-                <i class="fa fa-thumbs-down fa-2x m-3 dislike" aria-hidden="true"></i>
-            </div>
-        </div>
-        <% } %>
-
 
     </div>
 </div>
@@ -98,7 +99,7 @@
         <p class="words">“Fantastic place to relax and re-charge the batteries. A truly fabulous island,
             wonderful house reef, delicious food and we were well looked after by all the staff.”</p>
     </div>
-    
+
 </div>
 
 <%- include(footerPartial) %>
