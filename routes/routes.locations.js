@@ -21,6 +21,8 @@ const {
     createNewLocation,
     locationDetails,
     displayLocations,
+    displayLocationValidate,
+    saveValidation,
 } = require('../controllers/locations.controller');
 
 const { verifyUser } = require('../controllers/auth.controllers');
@@ -33,6 +35,14 @@ router.get('/create', verifyUser, displayCreateNew);
 // req.file is the `image` file
 router.post('/create', [verifyUser, upload.single('image')], createNewLocation);
 
-router.get('/:id', verifyUser, locationDetails);
+router.get('/validate', verifyUser, displayLocationValidate);
+
+router.post('/validate/:id/:validate', verifyUser, saveValidation);
+
+router.get('/id-:id', locationDetails);
+
+router.get('/', (req, res, next) => {
+    res.redirect('/');
+});
 
 module.exports = router;

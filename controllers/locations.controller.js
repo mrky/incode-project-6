@@ -100,8 +100,50 @@ module.exports = {
     },
 
     locationDetails: (req, res, next) => {
-        // todo
-        // res.send('respond with a resource');
-        res.render('locations/details');
+        // TODO
+        let { id } = req.params;
+        debug('location id:', id);
+        LocationSchema.getLocation(id)
+            .then((location) => {
+                res.render('locations/details', {
+                    title: location.name,
+                    location,
+                });
+            })
+            .catch((err) => {
+                let error = {
+                    message: 'Location not found.',
+                };
+                next(error);
+            });
+    },
+
+    displayLocationValidate: (req, res, next) => {
+        LocationSchema.getLocationsToValidate(req.params.location)
+            .then(function (locations) {
+                res.render('locations/validate', {
+                    title: `Results for "${req.params.location}"`,
+                    locations: locations,
+                });
+            })
+            .catch((err) =>
+                setImmediate(() => {
+                    console.log(err);
+                    res.status(500).send(err.toString());
+                })
+            );
+    },
+
+    saveValidation: (req, res, next) => {
+        LocationSchema.validateLocation(req.params.id, req.params.validate)
+            .then(function (validate) {
+                res.send(validate);
+            })
+            .catch((err) =>
+                setImmediate(() => {
+                    console.log(err);
+                    res.status(500).send(err.toString());
+                })
+            );
     },
 };
