@@ -102,6 +102,7 @@ module.exports = {
                 //     if(err) { throw err; }
             }
         ).then(() => {
+            console.log(profile)
             res.redirect('/users/profile');
         });
 

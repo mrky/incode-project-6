@@ -89,7 +89,7 @@ displayProfile = (id) => {
  updateProfile = (_id,firstName,surname,email, password) => {
      console.log('am in the update profile method')
      return new Promise((resolve, reject) => {
-         User.updateOne({surname: "hickey"}, 
+         User.updateOne ({ _id: "id"}, 
          { $set: {'firstName': firstName, 'surname': surname, 'email': email, 'password': password, }, function(err, user) { 
             console.log(user)
             resolve(user);
