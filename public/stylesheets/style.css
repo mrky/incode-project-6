@@ -65,13 +65,13 @@ a {
 }
 
 .loc-card-img {
-    object-fit: contain;
+    height: 40vw;
+    object-fit: cover;
 }
 
 @media (min-width: 576px) {
     .loc-card-img {
         height: 30vw;
-        object-fit: cover;
     }
 }
 
@@ -97,11 +97,7 @@ a {
 /* Michelle's CSS */
 /* ------------------------------ */
 
-/* body {
-    background-image: url('/images/vapour.png');
-} */
-
-.grid-container {
+#grid-container {
     display: grid;
     align-content: center;
     grid-template-columns: auto auto auto;
@@ -109,6 +105,10 @@ a {
     grid-gap: 15px;
     background-color: lightgrey;
     padding: 20px;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
 }
 
 .item {
@@ -116,22 +116,20 @@ a {
     text-align: center;
     padding: 5px 0;
     border-radius: 15px;
-    /* until grid works*/
-    width: 45%;
 }
 
 .item1 {
-    /* background-color: blueviolet;*/
+    background-color: blueviolet;
     text-align: center;
     padding: 5px 0;
     border-radius: 15px;
-    /* until grid works*/
 }
 
 #itemsContainer {
-    width: 100%;
     text-align: center;
     padding: 10px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .itemtitle {
@@ -146,6 +144,19 @@ a {
     margin-left: auto;
     margin-right: auto;
     border-radius: 25px;
+}
+
+.grid-container1,
+center {
+    display: grid;
+    align-content: center;
+    grid-template-columns: auto auto auto;
+    border-radius: 15px;
+    grid-gap: 15px;
+    background-color: white;
+    padding: 30px;
+    width: 50%;
+    margin-left: 350px;
 }
 
 .recommend {
@@ -198,13 +209,6 @@ a {
     display: block;
 }
 
-/* nav {
-    margin-top: 15px;
-    text-align: center;
-    background-color: black;
-    padding: 20px;
-} */
-
 .center {
     text-align: center;
     color: white;
@@ -220,22 +224,6 @@ a {
     padding: 10px;
     text-align: center;
 }
-
-/* .form-group {
-    font-size: 25px;
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 5px;
-    background-color: white;
-} */
-
-/* .form-group,
-a {
-    background-color: white;
-    margin-left: auto;
-    margin-right: auto;
-} */
 
 .btn-primary {
     margin-left: auto;
@@ -288,4 +276,34 @@ a {
     height: 150px;
     width: 100%;
     border: 1px solid darkgrey;
+}
+
+/*style for profile*/
+#grid-container3 {
+    background-color: lightslategray;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    padding: 10px;
+    border-radius: 25px;
+    width: 50%;
+    opacity: 0.7;
+    color: black;
+}
+
+.form-group1 {
+    font-size: 25px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 5px;
+    background-color: white;
+}
+
+input[type='text'] {
+    width: 220px;
+    border-radius: 5px;
+    background-color: lightsteelblue;
+    margin-left: 100px;
+    position: relative;
 }

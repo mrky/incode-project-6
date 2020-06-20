@@ -76,7 +76,34 @@ register = (user) => {
     }
 };
 
+displayProfile = (id) => {
+    console.log('we are in profile method' + id)
+    return new Promise((resolve, reject) => {
+        User.findOne({ surname: "hickey" }).then((user) => {
+          console.log(user)                         
+            resolve(user);
+        })
+    });
+}
+
+ updateProfile = (_id,firstName,surname,email, password) => {
+     console.log('am in the update profile method')
+     return new Promise((resolve, reject) => {
+         User.updateOne({surname: "hickey"}, 
+         { $set: {'firstName': firstName, 'surname': surname, 'email': email, 'password': password, }, function(err, user) { 
+            console.log(user)
+            resolve(user);
+         }
+    
+        
+        })
+    
+       })
+ }, 
+
 module.exports = {
     login,
     register,
+    displayProfile,
+    updateProfile,
 };
