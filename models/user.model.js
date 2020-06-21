@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const dbConnection = require('./db');
 const debug = require('debug')('project6:user.m');
-const bcrypt = require("bcryptjs");
+const bcrypt = require('bcryptjs');
 
 const UserModel = new Schema({
     firstName: {
@@ -36,48 +36,44 @@ const UserModel = new Schema({
 // dbConnection.mongoose.model('users', UserModel);
 const User = dbConnection.mongoose.model('users', UserModel);
 
-login = (email, password) => {
+let login = (email, password) => {
     return new Promise((resolve, reject) => {
         User.findOne({ email: email }).then((user) => {
             if (user == null) {
                 reject(new Error('Email not found. Please check your email!'));
             }
-            if(!bcrypt.compareSync(password, user.password)) {
-                reject(new Error('Your passwords do not match!'));
+            if (!bcrypt.compareSync(password, user.password)) {
+                reject(new Error('Wrong password!'));
             }
             resolve(user);
         });
     });
 };
 
-register = (user) => {
-    if (user.password != user.repassword) {
-        console.log('Password and Re-enter password do not match!');
-    } else {
-        const newUser = {
-            firstName: user.firstname,
-            surname: user.surname,
-            email: user.email,
-            password: bcrypt.hashSync(user.password, 10),
-            isAdmin: false,
-        };
+let register = (user) => {
+    const newUser = {
+        firstName: user.firstName,
+        surname: user.surname,
+        email: user.email,
+        password: user.password,
+        isAdmin: false,
+    };
 
-        return new Promise((resolve, reject) => {
-            new User(newUser)
-                .save()
-                .then((user) => {
-                    resolve(user);
+    return new Promise((resolve, reject) => {
+        new User(newUser)
+            .save()
+            .then((user) => {
+                resolve(user);
+            })
+            .catch((err) =>
+                setImmediate(() => {
+                    reject(new Error(err));
                 })
-                .catch((err) =>
-                    setImmediate(() => {
-                        reject(new Error(err));
-                    })
-                );
-        });
-    }
+            );
+    });
 };
 
-displayProfile = (id) => {
+let displayProfile = (id) => {
     console.log('we are in profile method' + id);
     return new Promise((resolve, reject) => {
         User.findById(id, function (err, user) {
@@ -96,7 +92,7 @@ displayProfile = (id) => {
     });
 };
 
-updateProfile = (id, values) => {
+let updateProfile = (id, values) => {
     console.log('am in the update profile method');
     debug(id);
     debug(values);

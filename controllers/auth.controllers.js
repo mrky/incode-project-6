@@ -1,3 +1,5 @@
+const bcrypt = require("bcryptjs");
+
 module.exports = {
     setUser: (req, user) => {
         req.session.userId = user._id;
@@ -22,6 +24,12 @@ module.exports = {
         } else {
             setRedirect(req, res, next);
         }
+    },
+
+    hashPassword: (password) => {
+        let hashedPassword = bcrypt.hashSync(password, 10);
+        console.log('hashedPassword is', hashedPassword)
+        return hashedPassword;
     },
 };
 
