@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const dbConnection = require('./db');
 const debug = require('debug')('project6:user.m');
+const bcrypt = require("bcryptjs");
 
 const UserModel = new Schema({
     firstName: {
@@ -41,7 +42,7 @@ login = (email, password) => {
             if (user == null) {
                 reject(new Error('Email not found. Please check your email!'));
             }
-            if (user.password != password) {
+            if(!bcrypt.compareSync(password, user.password)) {
                 reject(new Error('Your passwords do not match!'));
             }
             resolve(user);
@@ -57,7 +58,7 @@ register = (user) => {
             firstName: user.firstname,
             surname: user.surname,
             email: user.email,
-            password: user.password,
+            password: bcrypt.hashSync(user.password, 10),
             isAdmin: false,
         };
 
