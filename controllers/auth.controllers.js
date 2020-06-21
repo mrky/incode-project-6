@@ -8,17 +8,31 @@ module.exports = {
 
     verifyUser: (req, res, next) => {
         if (req.session.loggedIn === true) {
+            unsetRedirect(req);
             next();
         } else {
-            return res.sendStatus(403);
+            setRedirect(req, res, next);
         }
     },
 
     verifyAdmin: (req, res, next) => {
         if (req.session.isAdmin === true) {
+            unsetRedirect(req);
             next();
         } else {
-            return res.sendStatus(403);
+            setRedirect(req, res, next);
         }
     },
 };
+
+function setRedirect(req, res, next) {
+    req.session.redirectTo = req.originalUrl;
+    req.session.redirectSet = true;
+    res.redirect('/users/login');
+}
+
+function unsetRedirect(req, res, next) {
+    req.session.redirectTo = undefined;
+    req.session.redirectSet = false;
+    return;
+}

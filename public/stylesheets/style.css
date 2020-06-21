@@ -16,6 +16,10 @@ a {
     background-color: rgba(19, 22, 26, 0.75);
 }
 
+.bg-rgba-grey {
+    background-color: rgba(146, 153, 159, 0.75);
+}
+
 .navbar-item.nav-link {
     border-top: 1px solid transparent;
     border-bottom: 1px solid transparent;
@@ -89,6 +93,11 @@ textarea {
     min-height: 100px;
 }
 
+.w-30p {
+    width: 10rem;
+    max-width: 50%;
+}
+
 @media (min-width: 576px) {
     .loc-card {
         min-height: 450px;
@@ -153,7 +162,7 @@ textarea {
     border-radius: 15px;
 }
 
-#itemsContainer {
+.itemsContainer {
     text-align: center;
     padding: 10px;
     margin-left: auto;
@@ -315,7 +324,7 @@ center {
 }
 
 /*style for profile*/
-#grid-container3 {
+.grid-container3 {
     background-color: lightslategray;
     margin-left: auto;
     margin-right: auto;

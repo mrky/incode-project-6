@@ -28,6 +28,12 @@
 
 <div class="container-fluid px-4 px-md-5">
     <div class="row">
+        <% if (typeof locations.empty !== 'undefined' && locations.empty === true) { %>
+            <div class="mx-auto">
+                <p class="text-center"> <%= locations.message %> </p>
+            </div>
+        <% } else { %>
+
         <% locations.forEach(location => { %>
 
         <div class="col-12 col-sm-9 mx-auto col-lg-6 mx-lg-0 my-4 my-sm-5 px-4 loc-card">
@@ -46,7 +52,7 @@
             </div>
         </div>
 
-        <% }); %>
+        <% }); } %>
 
     </div>
 </div>

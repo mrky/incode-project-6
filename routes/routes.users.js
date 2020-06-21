@@ -11,6 +11,8 @@ const {
     updateProfile,
 } = require('../controllers/users.controller');
 
+const { verifyUser } = require('../controllers/auth.controllers');
+
 // GET users login page.
 router.get('/login', index);
 
@@ -22,8 +24,8 @@ router.post('/register', register);
 
 router.get('/logout', logout);
 
-router.get('/profile', profile);
+router.get('/profile', verifyUser, profile);
 
-router.post('/profile/:id', updateProfile);
+router.post('/profile', verifyUser, updateProfile);
 
 module.exports = router;

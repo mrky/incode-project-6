@@ -1,8 +1,7 @@
-const express = require('express');
-const session = require('express-session');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const dbConnection = require('./db');
+const debug = require('debug')('project6:user.m');
 
 const UserModel = new Schema({
     firstName: {
@@ -32,8 +31,9 @@ const UserModel = new Schema({
         required: true,
     },
 });
-dbConnection.mongoose.model('users', UserModel);
-const User = dbConnection.mongoose.model('users');
+
+// dbConnection.mongoose.model('users', UserModel);
+const User = dbConnection.mongoose.model('users', UserModel);
 
 login = (email, password) => {
     return new Promise((resolve, reject) => {
@@ -77,29 +77,48 @@ register = (user) => {
 };
 
 displayProfile = (id) => {
-    console.log('we are in profile method' + id)
+    console.log('we are in profile method' + id);
     return new Promise((resolve, reject) => {
-        User.findOne({ surname: "hickey" }).then((user) => {
-          console.log(user)                         
+        User.findById(id, function (err, user) {
+            if (err) {
+                console.log(err);
+                reject(err);
+            }
+            debug('displayProfile', user);
             resolve(user);
-        })
-    });
-}
+        });
 
- updateProfile = (_id,firstName,surname,email, password) => {
-     console.log('am in the update profile method')
-     return new Promise((resolve, reject) => {
-         User.updateOne ({ _id: "id"}, 
-         { $set: {'firstName': firstName, 'surname': surname, 'email': email, 'password': password, }, function(err, user) { 
-            console.log(user)
-            resolve(user);
-         }
-    
-        
+        // User.findOne({ surname: "hickey" }).then((user) => {
+        //   console.log(user)
+        //     resolve(user);
+        // })
+    });
+};
+
+updateProfile = (id, values) => {
+    console.log('am in the update profile method');
+    debug(id);
+    debug(values);
+    return new Promise((resolve, reject) => {
+        User.findByIdAndUpdate(id, {
+            $set: values,
+            function(err, user) {
+                debug('err is', err);
+                debug('user is', user);
+                reject(err);
+                resolve(user);
+            },
         })
-    
-       })
- }, 
+            .then((success) => {
+                debug('success is', success);
+                resolve(success);
+            })
+            .catch((err) => {
+                debug('err is', err);
+                reject(err);
+            });
+    });
+};
 
 module.exports = {
     login,

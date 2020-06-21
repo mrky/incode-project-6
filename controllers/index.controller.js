@@ -3,9 +3,7 @@ const LocationSchema = require('../models/location.model');
 
 module.exports = {
     index: (req, res, next) => {
-        // TODO
-        // Get only approved locations
-        LocationSchema.getLocations()
+        LocationSchema.getApprovedLoactions()
             .then(function (locations) {
                 debug('Locations:', locations);
                 res.render('index', {

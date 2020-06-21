@@ -1,67 +1,139 @@
-<%- include('partials/header') %>
+<%- include(headerPartial); %>
 
-<br>
-<br>
+<div class="container my-4">
+    <div class="row">
+        <div class="col-12 col-md-10 col-lg-8 mx-auto mb-5">
+            <% if (typeof title !== 'undefined') { %>
+            <%- include('../partials/title', {title}); %>
+            <% } %>
 
-<h1 class="center">Profile</h1> 
-
-     <div id ="grid-container3">
-    
-        <div id ="itemsContainer"> 
-                <h2 class="itemp">User Id:&nbsp;<%= profile.id %><br><br>
-                <h2 class="itemp">First Name:&nbsp;<%= profile.firstName %><br><br>    
-                <h2 class="itemp">Surname:&nbsp;<%= profile.surname %><br><br>
-                <h2 class="itemp">Email:&nbsp;<%= profile.email %><br><br> 
-                        
-         </div>    
-    </div> 
-<br>
-<br>
-    
-
-<h1 class="center">Update your Profile</h1>  
-
-   <br>
-   <br>
-   <div id="grid-container3">
-     <br>
-     <br>           
-      
-        <form action="/users/profile/<%= profile.id %>" method="post">
-              
-            <br>
-            <br>
-            <div id="itemsContainer">
-                <!-- <input name="id"  type="text"  value="<%= profile.id %>"/> -->
-                <div class="formgroup1">
-                <label for="firstName"> First Name:</label>
-                <input name="firstName" type="text"  value="<%= profile.firstName %>"/></div>
-                <br/>
-                <div class="formgroup1"></div>
-                <label for="surname">Your Surname:</label>
-                <input name="surName" type="text"  value="<%= profile.surname %>"/></div>
-                <br />
-                <div class="formgroup1">
-                <label for="email">Your Email:</label>
-                <input name="email"  type="text" value="<%= profile.email %>"/></div>
-                <br />
-                <div class="formgroup1">
-                <label for="password">Current Password:</label>
-                <input name="password"  type="text" value="<%= profile.password %>"/></div>
-                <br />
-                <div class="formgroup1">
-                <label for="newPassword">New Password:</label>
-                <input name="newPassword" type="text" value="<%#= users.newPassword %>"/></div>  
-                <br/>
-                <br/>
-                <button class="btn-primary">Update Profile</button>
-    </div>
-    
-        </form> 
-                        
-                    
-                
+            <div class="mb-5 px-4 py-4 shadow rounded font-size-125 text-shadow bg-rgba-dark">
+                <div class="mb-3">
+                    Your details are:
+                </div>
+                <table class="table table-responsive-sm text-white font-size-125">
+                    <tbody>
+                        <tr>
+                            <td class="border-0">First name:</td>
+                            <td class="border-0 font-weight-bold"><%= profile.firstName %></td>
+                        </tr>
+                        <tr>
+                            <td>Surname:</td>
+                            <td class="font-weight-bold"><%= profile.surname %></td>
+                        </tr>
+                        <tr>
+                            <td>Email:</td>
+                            <td class="font-weight-bold"><%= profile.email %></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
+        </div>
+    </div>
+
+    <!-- <div class="row">
+        <div class="col-12 col-md-10 col-lg-8 mx-auto mb-5">
+            <div class="mb-5 px-4 py-4 shadow rounded font-size-125 text-shadow bg-rgba-dark">
+                <h2 class="mb-4">Update Your Details</h2>
+                <form action="/users/profile" method="post">
+                    <div class="form-row">
+                        <div class="form-group col-md-6 mb-4">
+                            <label for="firstname-c">First name</label>
+                            <input type="text" class="form-control font-size-125" id="firstname-c"
+                                placeholder="First name" value="<%= profile.firstName %>">
+                        </div>
+
+                        <div class="form-group col-md-6 mb-4">
+                            <label for="surname-c">Surname</label>
+                            <input type="text" class="form-control font-size-125" id="surname-c" placeholder="Surname"
+                                value="<%= profile.surname %>">
+                        </div>
+
+                        <div class="form-group col-12 mb-4">
+                            <label for="email-c">Email</label>
+                            <input type="text" class="form-control font-size-125" id="email-c" placeholder="Email"
+                                value="<%= profile.email %>">
+                        </div>
+
+                        <div class="form-group col-12 mb-4">
+                            <label for="new-password">Update Password</label>
+                            <input type="password" class="form-control font-size-125" id="new-password"
+                                autocomplete="off">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div> -->
+</div>
+
+<br>
+<br>
+
+<!-- <h1 class="center">Profile</h1>
+
+<div class="grid-container3">
+
+    <div class="itemsContainer">
+        <h2 class="itemp">User Id:&nbsp;<%= profile.id %> </h2>
+        <br>
+        <br>
+        <h2 class="itemp">First Name:&nbsp;<%= profile.firstName %> </h2>
+        <br>
+        <br>
+        <h2 class="itemp">Surname:&nbsp;<%= profile.surname %> </h2>
+        <br>
+        <br>
+        <h2 class="itemp">Email:&nbsp;<%= profile.email %> </h2>
+        <br>
+        <br>
+
+    </div>
+</div>
+<br>
+<br> -->
+
+
+<h1 class="center">Update your Profile</h1>
+
+<br>
+<br>
+<div class="grid-container3">
+    <br>
+    <br>
+
+    <form action="/users/profile" method="post">
+
+        <br>
+        <br>
+        <div class="itemsContainer">
+            <!-- <input name="id"  type="text"  value="<%= profile.id %>"/> -->
+            <div class="formgroup1">
+                <label for="firstName"> First Name:</label>
+                <input name="firstName" type="text" value="<%= profile.firstName %>" /></div>
+            <br />
+            <div class="formgroup1"></div>
+            <label for="surname">Your Surname:</label>
+            <input name="surname" type="text" value="<%= profile.surname %>" />
+        </div>
+        <br />
+        <div class="formgroup1">
+            <label for="email">Your Email:</label>
+            <input name="email" type="text" value="<%= profile.email %>" /></div>
+        <br />
+        <div class="formgroup1">
+            <label for="password">Current Password:</label>
+            <input name="password" type="text" value="<%= profile.password %>" /></div>
+        <br />
+        <div class="formgroup1">
+            <label for="newPassword">New Password:</label>
+            <input name="newPassword" type="text" value="<%#= users.newPassword %>" /></div>
+        <br />
+        <br />
+        <button class="btn-primary">Update Profile</button>
+    </form>
+</div>
+
 <br>
 <br>
 
@@ -69,4 +141,4 @@
 
 
 
-<%- include('partials/footer') %>
+<%- include(footerPartial); %>

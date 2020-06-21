@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const dbConnection = require('./db');
+const debug = require('debug')('project6:location.m');
 
 const locationModel = new Schema({
     name: {
@@ -68,6 +69,25 @@ module.exports = {
                         reject(new Error('Location not found!'));
                     }
                     resolve(location);
+                })
+                .catch((err) => {
+                    reject(err);
+                });
+        });
+    },
+
+    getApprovedLoactions: () => {
+        return new Promise((resolve, reject) => {
+            Location.find({ approved: true })
+                .then((locations) => {
+                    if (!locations.length) {
+                        locations = {
+                            empty: true,
+                            message: 'No locations found.',
+                        };
+                    }
+                    debug(locations);
+                    resolve(locations);
                 })
                 .catch((err) => {
                     reject(err);
