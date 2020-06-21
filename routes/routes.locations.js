@@ -1,12 +1,11 @@
 const express = require('express');
 const router = express.Router();
-
 const multer = require('multer');
+const path = require('path')
+
 // SET STORAGE
 const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'uploads');
-    },
+    destination: path.join('/uploads'),
 
     filename: function (req, file, cb) {
         let { name } = req.body;
@@ -14,7 +13,16 @@ const storage = multer.diskStorage({
         cb(null, name + '-' + Date.now());
     },
 });
-const upload = multer({ storage: storage });
+
+// 2MB file limit
+const multerOptions = {
+    storage,
+    limits: {
+        'fileSize': 2000000
+    }
+};
+
+const upload = multer(multerOptions);
 
 const {
     displayCreateNew,
