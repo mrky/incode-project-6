@@ -32,7 +32,29 @@ const locationModel = new Schema({
     },
 
     recommendations: {
-        type: Number,
+        yes: {
+            type: new Schema({
+                count: { type: Number, required: false },
+                recommendedBy: {
+                    type: [Schema.Types.ObjectId],
+                    ref: 'users',
+                    required: true,
+                    unique: true,
+                    // index: true,
+                },
+            }),
+        },
+        no: {
+            type: new Schema({
+                count: { type: Number, required: false },
+                recommendedBy: {
+                    type: [Schema.Types.ObjectId],
+                    ref: 'users',
+                    required: true,
+                    unique: true,
+                },
+            }),
+        },
         required: false,
     },
 
@@ -52,6 +74,7 @@ const locationModel = new Schema({
 locationModel.index({ name: 'text' });
 
 let Location = dbConnection.mongoose.model('locations', locationModel);
+// Location.ensureIndexes();
 
 module.exports = {
     getLocations: (location = 'all') => {
@@ -149,4 +172,70 @@ module.exports = {
             );
         });
     },
+
+    recommendLocation: (locationId, recommendation, userId) => {
+        const filter = { _id: locationId };
+        let inc = 'recommendations.' + recommendation + '.count';
+        let push = 'recommendations.' + recommendation + '.recommendedBy';
+        debug('inc is', inc);
+        debug('push is', push);
+        const update = { $inc: { [inc]: 1 }, $push: { [push]: userId } };
+        return new Promise((resolve, reject) => {
+            Location.findByIdAndUpdate(locationId, update, {
+                new: true,
+            })
+                .then((result) => {
+                    checkIfRecommended(locationId, userId);
+
+                    debug('recommend result', result);
+
+                    if (result !== null) {
+                        if (result.nModified == 0) {
+                            debug('update result nM', result);
+                            reject(new Error('0 rows were modified!'));
+                        }
+                    } else {
+                        let error = new Error('Location does not exist.');
+                        reject('Location does not exist.');
+                    }
+                    resolve(result);
+                })
+                .catch((err) => {
+                    debug('');
+                    reject(err);
+                });
+        });
+    },
+
+    checkIfRecommended: (locationId, userId) => {
+        let checkYes = 'recommendations.yes.recommendedBy';
+        let checkNo = 'recommendations.no.recommendedBy';
+        Location.find({
+            _id: locationId,
+            [checkYes]: userId,
+            [checkNo]: userId,
+        }).then((result) => {
+            /* if (result == null) {
+                reject(new Error('There are no locations to validate!'));
+            }
+            resolve(location); */
+            debug('checkifrec result', result);
+        });
+    },
 };
+
+function checkIfRecommended(locationId, userId) {
+    let checkYes = 'recommendations.yes.recommendedBy';
+    let checkNo = 'recommendations.no.recommendedBy';
+    Location.find({ _id: locationId })
+        .or([{ [checkYes]: userId }, { [checkNo]: userId }])
+        .then((result) => {
+            if (result.length) {
+                // reject(new Error('There are no locations to validate!'));
+                debug('checkifrec result.yes', result[0].recommendations.yes);
+            } else {
+                debug('checkifrec is empty');
+            }
+            // resolve(location);
+        });
+}

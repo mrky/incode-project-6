@@ -146,4 +146,31 @@ module.exports = {
                 })
             );
     },
+
+    recommendLocation: (req, res, next) => {
+        let locationId = req.params.id;
+        let bodyid = req.body.bodyid;
+        console.log('body id is', bodyid)
+        debug('location id is %s', locationId)
+        let recommendation = req.body.recommendation;
+        debug('recommendation is', recommendation)
+        let userId = req.body.userId;
+        debug('userId is', userId)
+        if (recommendation !== '') {
+            LocationSchema.recommendLocation(locationId, recommendation, userId)
+                .then(function (validate) {
+                    res.send(validate);
+                })
+                .catch((err) =>
+                    setImmediate(() => {
+                        console.log(err);
+                        next(err);
+                        // res.status(500).send(err.toString());
+                    })
+                );
+        } else {
+            let error = new Error('Recommendation not set.');
+            next(error);
+        }
+    },
 };
