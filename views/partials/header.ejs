@@ -32,10 +32,10 @@
 
             <div class="navbar-nav flex-sm-row text-center">
                 <% if (typeof loggedIn !== 'undefined' && loggedIn === true) { %>
-                    <% if (typeof loggedIn !== 'undefined' && isAdmin === true) { %>
+                    <% if (typeof isAdmin !== 'undefined' && isAdmin === true) { %>
                     <a class="navbar-item nav-link active" href="/locations/validate"><i class="fa fa-check" aria-hidden="true"></i> Approve</a>
                     <% } %>
-                    <a class="navbar-item nav-link active" href="/locations/create"><i class="fa fa-plus" aria-hidden="true"></i> Create</a>
+                <a class="navbar-item nav-link active" href="/locations/create"><i class="fa fa-plus" aria-hidden="true"></i> Create</a>
                 <a class="navbar-item nav-link active" href="/users/profile"><i class="fa fa-user" aria-hidden="true"></i> Profile</a>
                 <a class="navbar-item nav-link active" href="/users/logout"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
                 <% } else { %>

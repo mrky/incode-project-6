@@ -1,4 +1,5 @@
-const bcrypt = require("bcryptjs");
+const bcrypt = require('bcryptjs');
+const checkIfRecommended = require('../models/location.model').checkIfRecommended;
 
 module.exports = {
     setUser: (req, user) => {
@@ -28,8 +29,27 @@ module.exports = {
 
     hashPassword: (password) => {
         let hashedPassword = bcrypt.hashSync(password, 10);
-        console.log('hashedPassword is', hashedPassword)
+        console.log('hashedPassword is', hashedPassword);
         return hashedPassword;
+    },
+
+    allowRecommendation: (req, res, next) => {
+        let locationId = req.params.id;
+        let userId = req.body.userId;
+        checkIfRecommended(locationId, userId)
+            .then((alreadyRecommended) => {
+                if (alreadyRecommended === false) {
+                    next();
+                } else {
+                    let error = new Error(
+                        'You have already given your recommendation for this location.'
+                    );
+                    next(error);
+                }
+            })
+            .catch((err) => {
+                next(err);
+            });
     },
 };
 

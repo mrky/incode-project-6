@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
-const path = require('path')
+const path = require('path');
 
 // SET STORAGE
 const storage = multer.diskStorage({
@@ -34,7 +34,7 @@ const {
     recommendLocation,
 } = require('../controllers/locations.controller');
 
-const { verifyUser, verifyAdmin } = require('../controllers/auth.controllers');
+const { verifyUser, verifyAdmin, allowRecommendation } = require('../controllers/auth.controllers');
 
 // GET create new location page.
 router.get('/display/:location', displayLocations);
@@ -50,7 +50,7 @@ router.post('/validate/:id/:validate', verifyAdmin, saveValidation);
 
 router.get('/id-:id', locationDetails);
 
-router.post('/recommend/id-:id', recommendLocation);
+router.post('/recommend/id-:id', allowRecommendation, recommendLocation);
 
 router.get('/', (req, res, next) => {
     res.redirect('/');

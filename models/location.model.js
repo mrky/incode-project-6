@@ -32,28 +32,12 @@ const locationModel = new Schema({
     },
 
     recommendations: {
+        type: Object,
         yes: {
-            type: new Schema({
-                count: { type: Number, required: false },
-                recommendedBy: {
-                    type: [Schema.Types.ObjectId],
-                    ref: 'users',
-                    required: true,
-                    unique: true,
-                    // index: true,
-                },
-            }),
+            type: Object,
         },
         no: {
-            type: new Schema({
-                count: { type: Number, required: false },
-                recommendedBy: {
-                    type: [Schema.Types.ObjectId],
-                    ref: 'users',
-                    required: true,
-                    unique: true,
-                },
-            }),
+            type: Object,
         },
         required: false,
     },
@@ -175,18 +159,14 @@ module.exports = {
 
     recommendLocation: (locationId, recommendation, userId) => {
         const filter = { _id: locationId };
-        let inc = 'recommendations.' + recommendation + '.count';
-        let push = 'recommendations.' + recommendation + '.recommendedBy';
-        debug('inc is', inc);
+        let push = 'recommendations.' + recommendation;
         debug('push is', push);
-        const update = { $inc: { [inc]: 1 }, $push: { [push]: userId } };
+        const update = { $push: { [push]: userId } };
         return new Promise((resolve, reject) => {
             Location.findByIdAndUpdate(locationId, update, {
                 new: true,
             })
                 .then((result) => {
-                    checkIfRecommended(locationId, userId);
-
                     debug('recommend result', result);
 
                     if (result !== null) {
@@ -208,34 +188,21 @@ module.exports = {
     },
 
     checkIfRecommended: (locationId, userId) => {
-        let checkYes = 'recommendations.yes.recommendedBy';
-        let checkNo = 'recommendations.no.recommendedBy';
-        Location.find({
-            _id: locationId,
-            [checkYes]: userId,
-            [checkNo]: userId,
-        }).then((result) => {
-            /* if (result == null) {
-                reject(new Error('There are no locations to validate!'));
-            }
-            resolve(location); */
-            debug('checkifrec result', result);
+        let checkYes = 'recommendations.yes';
+        let checkNo = 'recommendations.no';
+        return new Promise((resolve, reject) => {
+            Location.find({ _id: locationId })
+                .or([{ [checkYes]: userId }, { [checkNo]: userId }])
+                .then((result) => {
+                    if (result.length) {
+                        debug('checkifrec result.recommendations', result[0].recommendations);
+                        resolve(true);
+                    } else {
+                        resolve(false);
+                    }
+                }).catch(err => {
+                    reject(err);
+                });
         });
     },
 };
-
-function checkIfRecommended(locationId, userId) {
-    let checkYes = 'recommendations.yes.recommendedBy';
-    let checkNo = 'recommendations.no.recommendedBy';
-    Location.find({ _id: locationId })
-        .or([{ [checkYes]: userId }, { [checkNo]: userId }])
-        .then((result) => {
-            if (result.length) {
-                // reject(new Error('There are no locations to validate!'));
-                debug('checkifrec result.yes', result[0].recommendations.yes);
-            } else {
-                debug('checkifrec is empty');
-            }
-            // resolve(location);
-        });
-}
