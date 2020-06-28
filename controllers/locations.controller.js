@@ -146,4 +146,36 @@ module.exports = {
                 })
             );
     },
-};
+
+    addComment: (req, res, next) => {
+        LocationSchema.addComment(req.params.comment, req.params.author)
+        .then(function (locations) {
+
+    locations.update(
+        { _id: req.params.id },
+        {
+            $push: {
+                location: {
+                    comment: req.body.comment,
+                    author: req.body.author,
+                },
+            },
+        },
+        function (err, result) {
+            show(req, res);
+        }
+        .catch((err) =>
+                setImmediate(() => {
+                    console.log(err);
+                    res.status(500).send(err.toString());
+                })
+            
+
+            )
+        )}
+
+    )}
+}
+
+        
+    
