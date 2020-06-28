@@ -23,9 +23,9 @@
             <% if (loggedIn === true) { %>
             <div class="my-5 mx-auto text-center font-size-2 text-shadow">
                 Would you recommend <%= location.name %>?
-                <div>
-                    <i class="fa fa-thumbs-up fa-2x m-3 like" aria-hidden="true"></i>
-                    <i class="fa fa-thumbs-down fa-2x m-3 dislike" aria-hidden="true"></i>
+                <div id="recommendation">
+                    <i class="fa fa-thumbs-up fa-2x m-3 recommend-location like" id="yes" data-id="<%= location._id %>" aria-hidden="true"></i>
+                    <i class="fa fa-thumbs-down fa-2x m-3 recommend-location dislike" id="no" data-id="<%= location._id %>" aria-hidden="true"></i>
                 </div>
             </div>
             <% } %>

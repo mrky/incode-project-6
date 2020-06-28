@@ -154,7 +154,7 @@ module.exports = {
         debug('location id is %s', locationId)
         let recommendation = req.body.recommendation;
         debug('recommendation is', recommendation)
-        let userId = req.body.userId;
+        let userId = req.session.userId;
         debug('userId is', userId)
         if (recommendation !== '') {
             LocationSchema.recommendLocation(locationId, recommendation, userId)

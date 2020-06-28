@@ -32,14 +32,18 @@ const locationModel = new Schema({
     },
 
     recommendations: {
-        type: Object,
-        yes: {
-            type: Object,
-        },
-        no: {
-            type: Object,
-        },
-        required: false,
+        yes: [
+            {
+                type: Schema.Types.ObjectId,
+                required: true,
+            },
+        ],
+        no: [
+            {
+                type: Schema.Types.ObjectId,
+                required: true,
+            },
+        ],
     },
 
     comments: {
@@ -162,45 +166,44 @@ module.exports = {
         let push = 'recommendations.' + recommendation;
         debug('push is', push);
         const update = { $push: { [push]: userId } };
-        return new Promise((resolve, reject) => {
-            Location.findByIdAndUpdate(locationId, update, {
-                new: true,
-            })
-                .then((result) => {
-                    debug('recommend result', result);
-
-                    if (result !== null) {
-                        if (result.nModified == 0) {
-                            debug('update result nM', result);
-                            reject(new Error('0 rows were modified!'));
-                        }
-                    } else {
-                        let error = new Error('Location does not exist.');
-                        reject('Location does not exist.');
-                    }
-                    resolve(result);
-                })
-                .catch((err) => {
-                    debug('');
-                    reject(err);
-                });
+        return new Promise(async (resolve, reject) => {
+            try {
+                const doc = await Location.findOne(filter);
+                debug('doc is', doc);
+                debug('doc.push is', doc.recommendations[{ recommendation }]);
+                doc.recommendations[recommendation].push(userId);
+                const updated = await doc.save();
+                debug('updated is', updated);
+                resolve(updated);
+            } catch (err) {
+                debug('err is', err);
+                reject(err);
+            }
         });
     },
 
     checkIfRecommended: (locationId, userId) => {
+        debug('check user id is', userId);
         let checkYes = 'recommendations.yes';
         let checkNo = 'recommendations.no';
         return new Promise((resolve, reject) => {
             Location.find({ _id: locationId })
-                .or([{ [checkYes]: userId }, { [checkNo]: userId }])
+                .or([{ [checkNo]: userId }, { [checkYes]: userId }])
                 .then((result) => {
+                    debug('checkIfRecommended .then result is', result);
                     if (result.length) {
-                        debug('checkifrec result.recommendations', result[0].recommendations);
+                        debug(
+                            'checkifrec result.recommendations',
+                            result[0].recommendations
+                        );
                         resolve(true);
                     } else {
+                        debug('should resolve false');
                         resolve(false);
                     }
-                }).catch(err => {
+                })
+                .catch((err) => {
+                    debug(err);
                     reject(err);
                 });
         });

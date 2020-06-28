@@ -35,19 +35,21 @@ module.exports = {
 
     allowRecommendation: (req, res, next) => {
         let locationId = req.params.id;
-        let userId = req.body.userId;
+        let userId = req.session.userId;
         checkIfRecommended(locationId, userId)
             .then((alreadyRecommended) => {
                 if (alreadyRecommended === false) {
                     next();
-                } else {
-                    let error = new Error(
-                        'You have already given your recommendation for this location.'
-                    );
-                    next(error);
+                } else if (alreadyRecommended === true) {
+                    let error = {
+                        error: 'You have already given your recommendation for this location.'
+                    }
+                    console.log('error is', error)
+                    res.json(error);
                 }
             })
             .catch((err) => {
+                console.log(err);
                 next(err);
             });
     },

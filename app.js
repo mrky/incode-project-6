@@ -5,8 +5,10 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
 const session = require('express-session');
-const flash = require('connect-flash');
 const db = require('./models/db');
+const MongoStore = require('connect-mongo')(session);
+
+const flash = require('connect-flash');
 
 const indexRouter = require('./routes/routes.index');
 const usersRouter = require('./routes/routes.users');
@@ -20,6 +22,7 @@ app.use(
         secret: 'project6', //chave para gerar a chave da sessao.
         resave: true, // primeiro ressalva o cookie de sessão a cada requisição
         saveUninitialized: true, //salva dados das sessoes anonimas
+	    store: new MongoStore({mongooseConnection: db.mongoose.connection })
     })
 );
 app.use(flash());
