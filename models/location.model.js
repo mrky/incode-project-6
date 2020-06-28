@@ -144,6 +144,19 @@ module.exports = {
         });
     },
 
+    addComment: (location) => {
+        return new Promise((resolve, reject) => {
+            Location.findByIdAndUpdate(id, function (err, comment) {  
+                if (err) {
+                    console.log(err);
+                    reject(err);
+                }
+                console.log('addComment', comment);
+                resolve(comment);
+            });
+        });
+    },
+
     validateLocation: (id, approved) => {
         return new Promise((resolve, reject) => {
             Location.update({ _id: id }, { $set: { approved: approved } }).then(

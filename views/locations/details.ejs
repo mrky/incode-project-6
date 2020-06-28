@@ -56,7 +56,7 @@
     </div>
 </div> -->
 
-<div class="container my-5">
+<!-- <div class="container my-5">
 
     <div class="container pb-cmnt-container">
         <div class="row">
@@ -100,6 +100,42 @@
             wonderful house reef, delicious food and we were well looked after by all the staff.”</p>
     </div>
 
+</div> -->
+
+<div class="col-10 col-md-8 mt-4 mx-auto">
+    <form method="POST" id="formId" class="mb-4">
+        <div class="form-group">
+            <label for="comment">Comment: </label>
+            <textarea id="comment" class="form-control" name="comment" placeholder="Add comment"
+                required></textarea>
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">Add comment</button>
+        </div>
+    </form>
+
+
+    <% if (typeof comment !== 'undefined') { %>
+    <div class="bg-dark text-light rounded shadow my-5 px-4">
+        <table class="table table-dark">
+            <tr>
+                <th>Comments</th>
+            </tr>
+        <% locations.forEach(location => { %>
+            
+            
+            <tr>
+                <td>
+                    <%= location.comment %>
+                    <div class="text-left"><small><em>&nbsp;- <%= location.author %></em></small></div>
+                </td>
+            </tr>
+            <% })%>
+        </table>
+    </div>
+    
+</div>
+</div>
 </div>
 
 <%- include(footerPartial) %>

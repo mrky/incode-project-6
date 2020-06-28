@@ -159,13 +159,13 @@ module.exports = {
                 .then(function (saved) {
                     let recommended;
                     if (recommendation === 'yes') {
-                        would = 'would recommend'
+                        would = 'would recommend';
                     } else {
-                        would = 'would not recommend'
+                        would = 'would not recommend';
                     }
                     let obj = {
-                        success: `Recommendation saved. You said you ${would} this location.`
-                    }
+                        success: `Recommendation saved. You said you ${would} this location.`,
+                    };
                     res.json(obj);
                 })
                 .catch((err) =>
@@ -178,5 +178,31 @@ module.exports = {
             let error = new Error('Recommendation not set.');
             next(error);
         }
+    },
+
+    addComment: (req, res, next) => {
+        LocationSchema.addComment(req.params.comment, req.params.author).then(
+            function (locations) {
+                locations.update(
+                    { _id: req.params.id },
+                    {
+                        $push: {
+                            location: {
+                                comment: req.body.comment,
+                                author: req.body.author,
+                            },
+                        },
+                    },
+                    function (err, result) {
+                        show(req, res);
+                    }.catch((err) =>
+                        setImmediate(() => {
+                            console.log(err);
+                            res.status(500).send(err.toString());
+                        })
+                    )
+                );
+            }
+        );
     },
 };
