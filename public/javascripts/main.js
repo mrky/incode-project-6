@@ -41,8 +41,6 @@ $(document).ready(() => {
         let recommendation = $(this).attr('id');
         $(`#${recommendation}`).click(function () {
             let locationId = $(this).attr('data-id');
-            console.log('locationId is', locationId);
-            // alert('clicks');
             $.ajax({
                 url: '/locations/recommend/id-' + locationId,
                 type: 'POST',
@@ -53,11 +51,13 @@ $(document).ready(() => {
                     console.log('success', data);
                     let x = JSON.stringify(data);
                     if (data.error !== undefined) {
-                        // $('#recommendation').append(data.error);
                         $('#recommendation').text(data.error);
                     } else {
-                        // $('#recommendation').append(x);
                         $('#recommendation').text(x);
+                    }
+
+                    if (data.success !== undefined) {
+                        $('#recommendation').text(data.success);
                     }
                 },
                 error: (err) => {

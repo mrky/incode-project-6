@@ -40,11 +40,16 @@ module.exports = {
             .then((alreadyRecommended) => {
                 if (alreadyRecommended === false) {
                     next();
-                } else if (alreadyRecommended === true) {
+                } else if (alreadyRecommended.alreadyRecommended === true) {
+                    let would;
+                    if (alreadyRecommended.recommended === 'yes') {
+                        would = 'would recommend';
+                    } else {
+                        would = 'would not recommend'
+                    } 
                     let error = {
-                        error: 'You have already given your recommendation for this location.'
+                        error: `You have already said you ${would} this location.`
                     }
-                    console.log('error is', error)
                     res.json(error);
                 }
             })

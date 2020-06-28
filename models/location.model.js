@@ -169,14 +169,11 @@ module.exports = {
         return new Promise(async (resolve, reject) => {
             try {
                 const doc = await Location.findOne(filter);
-                debug('doc is', doc);
-                debug('doc.push is', doc.recommendations[{ recommendation }]);
                 doc.recommendations[recommendation].push(userId);
-                const updated = await doc.save();
-                debug('updated is', updated);
-                resolve(updated);
+                await doc.save();
+                resolve(true);
             } catch (err) {
-                debug('err is', err);
+                debug('recommendLocation err is:', err);
                 reject(err);
             }
         });
@@ -190,13 +187,29 @@ module.exports = {
             Location.find({ _id: locationId })
                 .or([{ [checkNo]: userId }, { [checkYes]: userId }])
                 .then((result) => {
-                    debug('checkIfRecommended .then result is', result);
                     if (result.length) {
-                        debug(
-                            'checkifrec result.recommendations',
-                            result[0].recommendations
-                        );
-                        resolve(true);
+                        let includesYes, includesNo;
+
+                        // if (result.recommendations.yes !== undefined) {
+                            includesYes = result[0].recommendations.yes.includes(userId);
+                        // } else if (result.recommendations.no !== undefined) {
+                            includesNo = result[0].recommendations.no.includes(userId);
+                        // }
+
+                        let recommended;
+
+                        if (includesYes) {
+                            recommended = 'yes';
+                        } else {
+                            recommended = 'no';
+                        }
+
+                        let obj = {
+                            alreadyRecommended: true,
+                            recommended
+                        }
+
+                        resolve(obj);
                     } else {
                         debug('should resolve false');
                         resolve(false);

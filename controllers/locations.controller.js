@@ -149,23 +149,29 @@ module.exports = {
 
     recommendLocation: (req, res, next) => {
         let locationId = req.params.id;
-        let bodyid = req.body.bodyid;
-        console.log('body id is', bodyid)
-        debug('location id is %s', locationId)
+        debug('location id is %s', locationId);
         let recommendation = req.body.recommendation;
-        debug('recommendation is', recommendation)
+        debug('recommendation is', recommendation);
         let userId = req.session.userId;
-        debug('userId is', userId)
+        debug('userId is', userId);
         if (recommendation !== '') {
             LocationSchema.recommendLocation(locationId, recommendation, userId)
-                .then(function (validate) {
-                    res.send(validate);
+                .then(function (saved) {
+                    let recommended;
+                    if (recommendation === 'yes') {
+                        would = 'would recommend'
+                    } else {
+                        would = 'would not recommend'
+                    }
+                    let obj = {
+                        success: `Recommendation saved. You said you ${would} this location.`
+                    }
+                    res.json(obj);
                 })
                 .catch((err) =>
                     setImmediate(() => {
                         console.log(err);
-                        next(err);
-                        // res.status(500).send(err.toString());
+                        res.json(err);
                     })
                 );
         } else {
