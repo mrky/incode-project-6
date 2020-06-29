@@ -18,18 +18,18 @@
                     <label for="image">Upload an image</label>
                     <input type="file" name="image" class="form-control-file mt-1 mb-3" id="image" required="required"
                         aria-describedby="imageHelpBlock">
-                    <pre id="imageHelpBlock"
-                        class="form-text text-white mt-1">Only .jpg or .png files are permitted.</pre>
+                    <small id="imageHelpBlock"
+                        class="form-text text-monospace">Only .jpg or .png files are permitted.</small>
                 </div>
 
                 <div class="form-group mb-4">
                     <label for="description">Description</label>
-                    <textarea name="description" id="description" class="w-100 p-2" rows="6"
+                    <textarea name="description" id="description" class="form-control w-100 p-2" rows="6"
                         placeholder="Enter location description" required="required"></textarea>
                 </div>
 
                 <div class="pt-3 text-center">
-                    <button type="submit" class="btn btn-light shadow-sm">Submit Location</button>
+                    <button type="submit" class="btn btn-light shadow">Submit Location</button>
                 </div>
             </form>
         </div>
