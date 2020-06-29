@@ -18,8 +18,8 @@ const storage = multer.diskStorage({
 const multerOptions = {
     storage,
     limits: {
-        'fileSize': 2000000
-    }
+        fileSize: 2000000,
+    },
 };
 
 const upload = multer(multerOptions);
@@ -35,11 +35,14 @@ const {
     addComment,
 } = require('../controllers/locations.controller');
 
-const { verifyUser, verifyAdmin, allowRecommendation } = require('../controllers/auth.controllers');
+const {
+    verifyUser,
+    verifyAdmin,
+    allowRecommendation,
+} = require('../controllers/auth.controllers');
 
 // GET create new location page.
 router.get('/display/:location', displayLocations);
-
 router.get('/create', verifyUser, displayCreateNew);
 
 // req.file is the `image` file

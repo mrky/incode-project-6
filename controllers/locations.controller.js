@@ -100,17 +100,18 @@ module.exports = {
     },
 
     locationDetails: (req, res, next) => {
-        // TODO
         let { id } = req.params;
         debug('location id:', id);
         LocationSchema.getLocation(id)
             .then((location) => {
+                debug('location is:', location);
                 res.render('locations/details', {
                     title: location.name,
                     location,
                 });
             })
             .catch((err) => {
+                debug('locationDetails err:', err);
                 let error = {
                     message: 'Location not found.',
                 };
@@ -181,28 +182,17 @@ module.exports = {
     },
 
     addComment: (req, res, next) => {
-        LocationSchema.addComment(req.params.comment, req.params.author).then(
-            function (locations) {
-                locations.update(
-                    { _id: req.params.id },
-                    {
-                        $push: {
-                            location: {
-                                comment: req.body.comment,
-                                author: req.body.author,
-                            },
-                        },
-                    },
-                    function (err, result) {
-                        show(req, res);
-                    }.catch((err) =>
-                        setImmediate(() => {
-                            console.log(err);
-                            res.status(500).send(err.toString());
-                        })
-                    )
-                );
-            }
-        );
+        debug(req.body);
+        let { comment } = req.body;
+        let author = req.session.userId;
+        let locationId = req.params.id;
+        LocationSchema.addComment(locationId, comment, author)
+            .then(function (added) {
+                res.send('Comment added successfully');
+            })
+            .catch((err) => {
+                debug('addComment catch err:', err);
+                res.send('Error adding comment');
+            });
     },
 };

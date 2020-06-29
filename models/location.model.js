@@ -46,17 +46,16 @@ const locationModel = new Schema({
         ],
     },
 
-    comments: {
-        type: new Schema({
+    comments: [
+        {
             comment: { type: String, required: true },
             author: {
                 type: Schema.Types.ObjectId,
                 ref: 'users',
                 required: true,
             },
-        }),
-        required: false,
-    },
+        },
+    ],
 });
 
 locationModel.index({ name: 'text' });
@@ -123,10 +122,10 @@ module.exports = {
         return new Promise((resolve, reject) => {
             Location.findById(id, function (err, location) {
                 if (err) {
-                    console.log(err);
+                    debug(err);
                     reject(err);
                 }
-                console.log('getLocation', location);
+                debug('getLocation', location);
                 resolve(location);
             });
         });
@@ -144,16 +143,17 @@ module.exports = {
         });
     },
 
-    addComment: (location) => {
-        return new Promise((resolve, reject) => {
-            Location.findByIdAndUpdate(id, function (err, comment) {  
-                if (err) {
-                    console.log(err);
-                    reject(err);
-                }
-                console.log('addComment', comment);
-                resolve(comment);
-            });
+    addComment: (locationId, comment, author) => {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const doc = await Location.findOne({ _id: locationId });
+                doc.comments.push({ comment, author });
+                await doc.save();
+                resolve(true);
+            } catch (err) {
+                debug('addComment err is:', err);
+                reject(err);
+            }
         });
     },
 
@@ -203,11 +203,13 @@ module.exports = {
                     if (result.length) {
                         let includesYes, includesNo;
 
-                        // if (result.recommendations.yes !== undefined) {
-                            includesYes = result[0].recommendations.yes.includes(userId);
-                        // } else if (result.recommendations.no !== undefined) {
-                            includesNo = result[0].recommendations.no.includes(userId);
-                        // }
+                        includesYes = result[0].recommendations.yes.includes(
+                            userId
+                        );
+
+                        includesNo = result[0].recommendations.no.includes(
+                            userId
+                        );
 
                         let recommended;
 
@@ -219,8 +221,8 @@ module.exports = {
 
                         let obj = {
                             alreadyRecommended: true,
-                            recommended
-                        }
+                            recommended,
+                        };
 
                         resolve(obj);
                     } else {

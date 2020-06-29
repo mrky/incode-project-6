@@ -3,7 +3,7 @@
 <div class="container-fluid px-5 my-4">
     <div class="row px-3">
 
-        <div class="col-lg-11 mx-auto p-0">
+        <div class="col-lg-11 mt-3 mb-5 mx-auto p-0">
             <div class="col-12 mx-auto p-5 clearfix bg-rgba-dark shadow rounded mb-5">
                 <% if (typeof title !== 'undefined') { %>
                 <div class="">
@@ -18,124 +18,61 @@
                     <p class="font-size-125 mb-0"><%= location.description %></p>
                 </div>
             </div>
+        </div>
 
 
-            <% if (loggedIn === true) { %>
-            <div class="my-5 mx-auto text-center font-size-2 text-shadow">
+        <% if (loggedIn === true) { %>
+        <div class="col-lg-11 mx-auto p-0">
+            <div class="col-12 col-md-8 mb-5 mx-auto text-center font-size-2 text-shadow">
                 Would you recommend <%= location.name %>?
                 <div id="recommendation">
-                    <i class="fa fa-thumbs-up fa-2x m-3 recommend-location like" id="yes" data-id="<%= location._id %>" aria-hidden="true"></i>
-                    <i class="fa fa-thumbs-down fa-2x m-3 recommend-location dislike" id="no" data-id="<%= location._id %>" aria-hidden="true"></i>
-                </div>
-            </div>
-            <% } %>
-        </div>
-
-    </div>
-</div>
-
-
-<!-- <div class="container mt-4">
-    <div class="row">
-        <div class="col-8 mx-auto p-5 bg-rgba-dark shadow rounded mb-5">
-            <div class="col-12 mx-auto">
-                <% if (typeof title !== 'undefined') { %>
-                <div class="">
-                    <%- include('../partials/title', {title}); %>
-                </div>
-                <% } %>
-                <div class="mb-5">
-                    <img class="img-fluid d-block mx-auto shadow" src="<%= location.imagePath %>"
-                        alt="<%= location.name %>">
-                </div>
-                <div class="p-4 bg-rgba-dark">
-                    <p class="font-size-125 mb-0"><%= location.description %></p>
+                    <i class="fa fa-thumbs-up fa-2x m-3 recommend-location like" id="yes" data-id="<%= location._id %>"
+                        aria-hidden="true"></i>
+                    <i class="fa fa-thumbs-down fa-2x m-3 recommend-location dislike" id="no"
+                        data-id="<%= location._id %>" aria-hidden="true"></i>
                 </div>
             </div>
         </div>
-    </div>
-</div> -->
 
-<!-- <div class="container my-5">
-
-    <div class="container pb-cmnt-container">
-        <div class="row">
-            <div class="col-md-6 offset-md-3">
-                <div class="card card-info">
-                    <div class="card-block">
-                        <form class="form-inline">
-                            <textarea placeholder="Add your comment here!" class="pb-cmnt-textarea"
-                                id="words"></textarea>
-                            <input type="button" class="btn-primary" onclick="getwords()" value="Enter" />
-                        </form>
+        <div class="col-lg-11 mx-auto p-0">
+            <div class="col-12 col-md-8 my-5 mx-auto font-size-125 text-shadow">
+                <form method="post" class="mb-4">
+                    <div class="form-group">
+                        <label for="comment">Comment:</label>
+                        <textarea id="comment" class="form-control" name="comment" placeholder="Add a comment"
+                            required></textarea>
                     </div>
-                </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-light mt-3 mb-5 shadow">Add comment</button>
+                    </div>
+                </form>
             </div>
         </div>
-    </div>
 
+        <% } %>
 
-    <div class="commentsSection">
-        <h2 class="center">Comments Section</h2>
-
-        <p id="para"></p>
-
-        <p class="words">“The Maldives is one of the most beautiful areas we have ever been to,
-            the only part you generally see though is the airport and your island. The
-            airport has improved and has a good lounge only down side can be the queue
-            to get into Departures which can be some distance out of the entrance doors
-            as people get through security. ”
-        <p>
-
-        <p class="words">“Stunning! Have never seen anything like it. Seamless journey, beautiful
-            surroundings, everything very luxurious and special ”
-        <p>
-
-        <p class="words">“What can I say, my 3rd visit to this country it never disappoints, I can not
-            believe how from landing in Male to holidaying in your resort just how organized
-            it all is. I struggle to holiday else where.”
-        <p>
-
-        <p class="words">“Fantastic place to relax and re-charge the batteries. A truly fabulous island,
-            wonderful house reef, delicious food and we were well looked after by all the staff.”</p>
-    </div>
-
-</div> -->
-
-<div class="col-10 col-md-8 mt-4 mx-auto">
-    <form method="POST" id="formId" class="mb-4">
-        <div class="form-group">
-            <label for="comment">Comment: </label>
-            <textarea id="comment" class="form-control" name="comment" placeholder="Add comment"
-                required></textarea>
+        <% if (typeof location.comments !== 'undefined' && location.comments.length) { %>
+        <div class="col-lg-11 mx-auto p-0">
+            <div class="  "></div>
+            <div class="col-12 col-md-8 mt-0 mb-5 mx-auto px-4 py-3 bg-rgba-dark text-light text-shadow font-size-125 rounded shadow">
+                <table class="table text-light">
+                    <tr>
+                        <th class="border-0">Comments</th>
+                    </tr>
+                    <% location.comments.forEach(comment => { %>
+                    <tr>
+                        <td>
+                            <%= comment.comment %>
+                            <div class="text-right"><small><em>&nbsp;- <%= comment.author %></em></small></div>
+                        </td>
+                    </tr>
+                    <% })%>
+                </table>
+            </div>
         </div>
-        <div class="text-center">
-            <button type="submit" class="btn btn-primary">Add comment</button>
-        </div>
-    </form>
+        <% } %>
 
-
-    <% if (typeof comment !== 'undefined') { %>
-    <div class="bg-dark text-light rounded shadow my-5 px-4">
-        <table class="table table-dark">
-            <tr>
-                <th>Comments</th>
-            </tr>
-        <% locations.forEach(location => { %>
-            
-            
-            <tr>
-                <td>
-                    <%= location.comment %>
-                    <div class="text-left"><small><em>&nbsp;- <%= location.author %></em></small></div>
-                </td>
-            </tr>
-            <% })%>
-        </table>
     </div>
-    
-</div>
-</div>
 </div>
 
 <%- include(footerPartial) %>
