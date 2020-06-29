@@ -99,15 +99,37 @@ module.exports = {
             });
     },
 
-    locationDetails: (req, res, next) => {
-        let { id } = req.params;
-        debug('location id:', id);
-        LocationSchema.getLocation(id)
+    locationDetails: async (req, res, next) => {
+        try {
+        let locationId = req.params.id;
+        let {userId} = req.session;
+        debug('location id:', locationId);
+
+        let alreadyRecommended = await LocationSchema.checkIfRecommended(locationId, userId);
+        debug('alredy recommended is:', alreadyRecommended);
+
+        let allowRecommend = {
+            yes: true,
+        };
+
+        if (alreadyRecommended.yes === true) {
+            allowRecommend.yes = false;
+            let would;
+            if (alreadyRecommended.recommended === 'yes') {
+                would = 'would'
+            } else {
+                would = 'would not'
+            }
+            allowRecommend.message = `You said you ${would} recommend this location.`
+        }
+        
+        LocationSchema.getLocation(locationId)
             .then((location) => {
                 debug('location is:', location);
                 res.render('locations/details', {
                     title: location.name,
                     location,
+                    allowRecommend,
                 });
             })
             .catch((err) => {
@@ -117,6 +139,10 @@ module.exports = {
                 };
                 next(error);
             });
+        } catch (err) {
+            debug('locationDetails catch err:', err);
+            next(err);
+        }
     },
 
     displayLocationValidate: (req, res, next) => {

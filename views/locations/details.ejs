@@ -23,14 +23,18 @@
 
         <% if (loggedIn === true) { %>
         <div class="col-lg-11 mx-auto p-0">
-            <div class="col-12 col-md-10 col-lg-8 mb-5 mx-auto text-center font-size-2 text-shadow">
-                Would you recommend <%= location.name %>?
-                <div id="recommendation">
+            <div class="col-12 col-md-10 col-lg-8 mb-5 mx-auto text-center font-size-2 text-shadow" id="recommendation">
+                <% if (allowRecommend.yes === true) { %>
+                <div>Would you recommend <%= location.name %>?</div>
+                <div>
                     <i class="fa fa-thumbs-up fa-2x m-3 recommend-location like" id="yes" data-id="<%= location._id %>"
                         aria-hidden="true"></i>
                     <i class="fa fa-thumbs-down fa-2x m-3 recommend-location dislike" id="no"
                         data-id="<%= location._id %>" aria-hidden="true"></i>
                 </div>
+                <% } else { %>
+                <%= allowRecommend.message %>
+                <% } %>
             </div>
         </div>
 

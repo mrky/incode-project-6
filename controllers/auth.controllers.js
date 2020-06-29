@@ -38,9 +38,9 @@ module.exports = {
         let userId = req.session.userId;
         checkIfRecommended(locationId, userId)
             .then((alreadyRecommended) => {
-                if (alreadyRecommended === false) {
+                if (alreadyRecommended.yes === false) {
                     next();
-                } else if (alreadyRecommended.alreadyRecommended === true) {
+                } else if (alreadyRecommended.yes === true) {
                     let would;
                     if (alreadyRecommended.recommended === 'yes') {
                         would = 'would recommend';

@@ -200,6 +200,7 @@ module.exports = {
             Location.find({ _id: locationId })
                 .or([{ [checkNo]: userId }, { [checkYes]: userId }])
                 .then((result) => {
+                    let obj = {};
                     if (result.length) {
                         let includesYes, includesNo;
 
@@ -219,15 +220,18 @@ module.exports = {
                             recommended = 'no';
                         }
 
-                        let obj = {
-                            alreadyRecommended: true,
+                        obj = {
+                            yes: true,
                             recommended,
                         };
 
                         resolve(obj);
                     } else {
                         debug('should resolve false');
-                        resolve(false);
+                        obj = {
+                            yes: false,
+                        }
+                        resolve(obj);
                     }
                 })
                 .catch((err) => {
