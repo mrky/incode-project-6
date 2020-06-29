@@ -31,7 +31,7 @@
         <nav class="navbar navbar-expand navbar-dark d-flex flex-column flex-sm-row justify-content-between text-shadow">
             <a class="navbar-brand align-self-start" href="/"><i class="fa fa-map-o" aria-hidden="true"></i> Locations</a>
 
-            <div class="navbar-nav flex-sm-row text-center">
+            <div class="navbar-nav mt-2 flex-sm-row mt-sm-0 text-center">
                 <% if (typeof loggedIn !== 'undefined' && loggedIn === true) { %>
                     <% if (typeof isAdmin !== 'undefined' && isAdmin === true) { %>
                     <a class="navbar-item nav-link active" href="/locations/validate"><i class="fa fa-check" aria-hidden="true"></i> Approve</a>

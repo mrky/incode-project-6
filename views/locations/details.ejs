@@ -1,21 +1,21 @@
 <%- include(headerPartial) %>
 
 <div class="container-fluid px-5 my-4">
-    <div class="row px-3">
+    <div class="row px-sm-3">
 
         <div class="col-lg-11 mt-3 mb-5 mx-auto p-0">
+            <% if (typeof title !== 'undefined') { %>
+            <div class="text-center">
+                <%- include('../partials/title', {title}); %>
+            </div>
+            <% } %>
             <div class="col-12 mx-auto p-5 clearfix bg-rgba-dark shadow rounded mb-5">
-                <% if (typeof title !== 'undefined') { %>
-                <div class="">
-                    <%- include('../partials/title', {title}); %>
-                </div>
-                <% } %>
-                <div class="mt-2 mb-5 ml-5 mr-2 pb-5 float-right mw-50vw">
-                    <img class="img-fluid d-block mx-auto shadow" src="<%= location.imagePath %>"
+                <div class="mx-auto mb-4 my-lg-4 ml-lg-5 mr-lg-2 float-lg-right mw-50vw">
+                    <img class="img-fluid mh-100vh d-block mx-auto shadow" src="<%= location.imagePath %>"
                         alt="<%= location.name %>">
                 </div>
                 <div class="p-2 mb-2">
-                    <p class="font-size-125 mb-0"><%= location.description %></p>
+                    <p class="font-size-1 mb-0"><%= location.description %></p>
                 </div>
             </div>
         </div>
@@ -23,7 +23,7 @@
 
         <% if (loggedIn === true) { %>
         <div class="col-lg-11 mx-auto p-0">
-            <div class="col-12 col-md-8 mb-5 mx-auto text-center font-size-2 text-shadow">
+            <div class="col-12 col-md-10 col-lg-8 mb-5 mx-auto text-center font-size-2 text-shadow">
                 Would you recommend <%= location.name %>?
                 <div id="recommendation">
                     <i class="fa fa-thumbs-up fa-2x m-3 recommend-location like" id="yes" data-id="<%= location._id %>"
@@ -35,7 +35,7 @@
         </div>
 
         <div class="col-lg-11 mx-auto p-0">
-            <div class="col-12 col-md-8 my-5 mx-auto font-size-125 text-shadow">
+            <div class="col-12 col-md-10 col-lg-8 my-5 mx-auto font-size-1 text-shadow">
                 <form method="post" class="mb-4">
                     <div class="form-group">
                         <label for="comment">Comment:</label>
@@ -43,7 +43,7 @@
                             required></textarea>
                     </div>
                     <div class="text-center">
-                        <button type="submit" class="btn btn-light mt-3 mb-5 shadow">Add comment</button>
+                        <button type="submit" class="btn btn-light mt-3 mb-5 shadow">Add Comment</button>
                     </div>
                 </form>
             </div>
@@ -54,7 +54,8 @@
         <% if (typeof location.comments !== 'undefined' && location.comments.length) { %>
         <div class="col-lg-11 mx-auto p-0">
             <div class="  "></div>
-            <div class="col-12 col-md-8 mt-0 mb-5 mx-auto px-4 py-3 bg-rgba-dark text-light text-shadow font-size-125 rounded shadow">
+            <div
+                class="col-12 col-md-10 col-lg-8 mt-0 mb-5 mx-auto px-4 py-3 bg-rgba-dark text-light text-shadow font-size-1 rounded shadow">
                 <table class="table text-light">
                     <tr>
                         <th class="border-0">Comments</th>

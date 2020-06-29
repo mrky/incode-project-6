@@ -77,12 +77,12 @@ a {
     object-fit: cover;
 }
 
-.font-size-125 {
+.font-size-1 {
     font-size: 1.25rem;
 }
 
 .font-size-2 {
-    font-size: 2rem;
+    font-size: 1.5rem;
 }
 
 .font-size-40px {
@@ -91,6 +91,10 @@ a {
 
 .mw-50vw {
     max-width: 50vw;
+}
+
+.mh-100vh {
+    max-height: 100vh;
 }
 
 textarea {
@@ -110,6 +114,10 @@ textarea {
     .loc-card-img {
         height: 30vw;
     }
+
+    .font-size-2 {
+        font-size: 1.6rem;
+    }
 }
 
 @media (min-width: 768px) {
@@ -126,11 +134,19 @@ textarea {
     .loc-card-img {
         height: 20vw;
     }
+
+    .font-size-2 {
+        font-size: 1.75rem;
+    }
 }
 
 @media (min-width: 1200px) {
     .loc-card-img {
         height: 20vw;
+    }
+
+    .font-size-2 {
+        font-size: 2rem;
     }
 }
 
@@ -210,15 +226,12 @@ center {
 
 .like,
 .dislike {
-    /* display: inline-block; */
     cursor: pointer;
-    /* margin: 10px; */
     transition: transform 0.5s ease, color 0.2s ease;
 }
 
 .dislike:hover,
 .like:hover {
-    /* color: #2ebdd1; */
     transform: scale(1.3);
 }
 
@@ -230,7 +243,8 @@ center {
     color: #aa0c0c;
 }
 
-.active {
+.like.active,
+.dislike.active {
     color: #2ebdd1;
 }
 
