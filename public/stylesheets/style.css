@@ -85,6 +85,10 @@ a {
     font-size: 2rem;
 }
 
+.font-size-40px {
+    font-size: 40px;
+}
+
 .mw-50vw {
     max-width: 50vw;
 }
@@ -270,13 +274,13 @@ center {
     text-align: center;
 }
 
-.btn-primary {
+/* .btn-primary {
     margin-left: auto;
     margin-right: auto;
     width: 100px;
     border-radius: 25px;
     padding: 15px;
-}
+} */
 
 .row justify-content-md-center {
     margin-left: auto;
