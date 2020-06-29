@@ -1,27 +1,25 @@
-
-    function getwords() {
+function getwords() {
     text = words.value;
-    document.getElementById("para").innerHTML += '<p>'+text
-    document.getElementById("words").value = "enter"
+    document.getElementById('para').innerHTML += '<p>' + text;
+    document.getElementById('words').value = 'enter';
     document.getElementById('words').reset();
-    };
+}
 
-    $(function() {
-    $('.like, .dislike').on('click', function() {
+$(function () {
+    $('.like, .dislike').on('click', function () {
         event.preventDefault();
-        $('.active').removeClass('active');
+        $('.like, .dislike').removeClass('active');
         $(this).addClass('active');
     });
-    
+
     var howMany = 1;
 
-    $("#more").click(function(){
+    $('#more').click(function () {
         howMany += 1;
-        $("#info").text(howMany);
+        $('#info').text(howMany);
     });
-    $("#less").click(function(){
+    $('#less').click(function () {
         howMany -= 1;
-        $("#info").text(howMany);
+        $('#info').text(howMany);
     });
-    
 });
