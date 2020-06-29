@@ -243,10 +243,10 @@ center {
     color: #aa0c0c;
 }
 
-.like.active,
+/* .like.active,
 .dislike.active {
     color: #2ebdd1;
-}
+} */
 
 .itemp {
     display: block;

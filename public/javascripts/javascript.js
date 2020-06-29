@@ -6,11 +6,11 @@ function getwords() {
 }
 
 $(function () {
-    $('.like, .dislike').on('click', function () {
+    /* $('.like, .dislike').on('click', function () {
         event.preventDefault();
         $('.like, .dislike').removeClass('active');
         $(this).addClass('active');
-    });
+    }); */
 
     var howMany = 1;
 
