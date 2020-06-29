@@ -50,7 +50,7 @@ router.post('/create', [verifyUser, upload.single('image')], createNewLocation);
 router.get('/validate', verifyAdmin, displayLocationValidate);
 router.post('/validate/:id/:validate', verifyAdmin, saveValidation);
 router.get('/id-:id', locationDetails);
-router.post('/id-:id', addComment);
+router.post('/id-:id', verifyUser, addComment);
 router.post('/recommend/id-:id', allowRecommendation, recommendLocation);
 
 router.get('/', (req, res, next) => {

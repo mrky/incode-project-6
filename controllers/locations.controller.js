@@ -182,8 +182,8 @@ module.exports = {
     },
 
     addComment: (req, res, next) => {
-        debug(req.body);
         let { comment } = req.body;
+        debug('comment is:', comment);
         let author = req.session.userId;
         let locationId = req.params.id;
         LocationSchema.addComment(locationId, comment, author)
