@@ -60,7 +60,7 @@ module.exports = {
             });
     },
 
-    isApproved: (req, res, next) => {
+    verifyApproved: (req, res, next) => {
         checkIfApproved(req.params.id)
             .then((approved) => {
                 if (approved === true) {

@@ -39,7 +39,7 @@ const {
     verifyUser,
     verifyAdmin,
     allowRecommendation,
-    isApproved,
+    verifyApproved,
 } = require('../controllers/auth.controllers');
 
 // GET create new location page.
@@ -50,7 +50,7 @@ router.get('/create', verifyUser, displayCreateNew);
 router.post('/create', [verifyUser, upload.single('image')], createNewLocation);
 router.get('/validate', verifyAdmin, displayLocationValidate);
 router.post('/validate/:id/:validate', verifyAdmin, saveValidation);
-router.get('/id-:id', isApproved, locationDetails);
+router.get('/id-:id', verifyApproved, locationDetails);
 router.post('/id-:id', verifyUser, addComment);
 router.post('/recommend/id-:id', allowRecommendation, recommendLocation);
 
