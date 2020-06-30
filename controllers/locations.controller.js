@@ -22,6 +22,15 @@ module.exports = {
     },
 
     displayCreateNew: (req, res, next) => {
+        if (req.session.createData !== undefined) {
+            res.locals.data = req.session.createData;
+            req.session.createData = undefined;
+        } else {
+            res.locals.data = {
+                input: {},
+                message: {},
+            };
+        }
         res.render('locations/create', {
             title: 'Create Location',
         });
@@ -34,16 +43,23 @@ module.exports = {
             });
         }
 
+        let { name, description } = req.body;
         let image = req.file;
         debug('image is:', image);
 
+        req.session.createData = data = {
+            input: {},
+            message: {},
+        };
+
         if (!image) {
-            const error = new Error('Please upload a file');
-            error.httpStatusCode = 400;
-            return next(error);
+            data.input.name = name;
+            data.input.description = description;
+            data.message.class = 'alert-danger';
+            data.message.text = 'Please upload an image.';
+            return res.redirect('/locations/create');
         }
 
-        let { name, description } = req.body;
         let createdBy = req.session.userId;
         debug('name is', name);
         debug('description is', description);
@@ -55,10 +71,18 @@ module.exports = {
         debug('mimetpye is:', mimetype);
 
         if (name === '' || description === '' || image === undefined) {
-            return res.send('Please fill out form completely.');
+            data.input.name = name;
+            data.input.description = description;
+            data.message.class = 'alert-danger';
+            data.message.text = 'Please fill out form completely.';
+            return res.redirect('/locations/create');
         } else if (mimetype !== 'jpeg' && mimetype !== 'png') {
             unlink(image.path);
-            return res.send('Only jpg or png files may be uploaded.');
+            data.input.name = name;
+            data.input.description = description;
+            data.message.class = 'alert-danger';
+            data.message.text = 'Only .jpg or .png files may be uploaded.';
+            return res.redirect('/locations/create');
         }
 
         if (ext !== '.jpg') {
@@ -86,59 +110,59 @@ module.exports = {
                     debug('File uploaded to', targetPath);
                 });
 
-                return res
-                    .status(200)
-                    .contentType('text/plain')
-                    .end(
-                        `Successfully created the location '${uploaded.name}'`
-                    );
+                data.message.class = 'alert-success';
+                data.message.text = `Successfully created the location '${uploaded.name}'.`;
+                return res.redirect('/locations/create');
             })
             .catch((err) => {
                 unlink(image.path);
-                return res.json(err);
+                return next(err);
             });
     },
 
     locationDetails: async (req, res, next) => {
         try {
-        let locationId = req.params.id;
-        let {userId} = req.session;
-        debug('location id:', locationId);
+            let locationId = req.params.id;
+            let { userId } = req.session;
+            debug('location id:', locationId);
 
-        let alreadyRecommended = await LocationSchema.checkIfRecommended(locationId, userId);
-        debug('alredy recommended is:', alreadyRecommended);
+            let alreadyRecommended = await LocationSchema.checkIfRecommended(
+                locationId,
+                userId
+            );
+            debug('alredy recommended is:', alreadyRecommended);
 
-        let allowRecommend = {
-            yes: true,
-        };
+            let allowRecommend = {
+                yes: true,
+            };
 
-        if (alreadyRecommended.yes === true) {
-            allowRecommend.yes = false;
-            let would;
-            if (alreadyRecommended.recommended === 'yes') {
-                would = 'would'
-            } else {
-                would = 'would not'
+            if (alreadyRecommended.yes === true) {
+                allowRecommend.yes = false;
+                let would;
+                if (alreadyRecommended.recommended === 'yes') {
+                    would = 'would';
+                } else {
+                    would = 'would not';
+                }
+                allowRecommend.message = `You said you ${would} recommend this location.`;
             }
-            allowRecommend.message = `You said you ${would} recommend this location.`
-        }
-        
-        LocationSchema.getLocation(locationId)
-            .then((location) => {
-                debug('location is:', location);
-                res.render('locations/details', {
-                    title: location.name,
-                    location,
-                    allowRecommend,
+
+            LocationSchema.getLocation(locationId)
+                .then((location) => {
+                    debug('location is:', location);
+                    res.render('locations/details', {
+                        title: location.name,
+                        location,
+                        allowRecommend,
+                    });
+                })
+                .catch((err) => {
+                    debug('locationDetails err:', err);
+                    let error = {
+                        message: 'Location not found.',
+                    };
+                    next(error);
                 });
-            })
-            .catch((err) => {
-                debug('locationDetails err:', err);
-                let error = {
-                    message: 'Location not found.',
-                };
-                next(error);
-            });
         } catch (err) {
             debug('locationDetails catch err:', err);
             next(err);
