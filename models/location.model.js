@@ -66,10 +66,13 @@ let Location = dbConnection.mongoose.model('locations', locationModel);
 module.exports = {
     getLocations: (location = 'all') => {
         if (location === 'all') {
-            searchLocation = {};
+            searchLocation = { approved: true };
         } else {
             console.log(location);
-            searchLocation = { $text: { $search: `"\"${location}\"" ` } };
+            searchLocation = {
+                approved: true,
+                $text: { $search: `"\"${location}\"" ` },
+            };
         }
 
         return new Promise((resolve, reject) => {
