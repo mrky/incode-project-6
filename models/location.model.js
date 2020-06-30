@@ -230,12 +230,32 @@ module.exports = {
                         debug('should resolve false');
                         obj = {
                             yes: false,
-                        }
+                        };
                         resolve(obj);
                     }
                 })
                 .catch((err) => {
                     debug(err);
+                    reject(err);
+                });
+        });
+    },
+
+    checkIfApproved: (locationId) => {
+        return new Promise((resolve, reject) => {
+            Location.findById(locationId)
+                .then((location) => {
+                    debug('location found:', location);
+                    debug('location aprroved:', location.approved);
+                    if (location.approved === true) {
+                        resolve(true);
+                    } else {
+                        debug('check resolves false');
+                        resolve(false);
+                    }
+                })
+                .catch((err) => {
+                    debug('check if approved err:', err);
                     reject(err);
                 });
         });

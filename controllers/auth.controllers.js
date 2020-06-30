@@ -1,5 +1,6 @@
 const bcrypt = require('bcryptjs');
 const checkIfRecommended = require('../models/location.model').checkIfRecommended;
+const checkIfApproved = require('../models/location.model').checkIfApproved;
 
 module.exports = {
     setUser: (req, user) => {
@@ -43,18 +44,35 @@ module.exports = {
                 } else if (alreadyRecommended.yes === true) {
                     let would;
                     if (alreadyRecommended.recommended === 'yes') {
-                        would = 'would recommend';
+                        would = 'would';
                     } else {
-                        would = 'would not recommend'
-                    } 
-                    let error = {
-                        error: `You have already said you ${would} this location.`
+                        would = 'would not';
                     }
+                    let error = {
+                        error: `You have already said you ${would} recommend this location.`,
+                    };
                     res.json(error);
                 }
             })
             .catch((err) => {
                 console.log(err);
+                next(err);
+            });
+    },
+
+    isApproved: (req, res, next) => {
+        checkIfApproved(req.params.id)
+            .then((approved) => {
+                if (approved === true) {
+                    next();
+                } else {
+                    let error = {
+                        message: 'Location has not been approved and therefore can not be viewed.',
+                    };
+                    next(error);
+                }
+            })
+            .catch((err) => {
                 next(err);
             });
     },
