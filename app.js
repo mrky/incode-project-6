@@ -19,12 +19,13 @@ const app = express();
 //session
 app.use(
     session({
-        secret: 'project6', //chave para gerar a chave da sessao.
-        resave: true, // primeiro ressalva o cookie de sessão a cada requisição
-        saveUninitialized: true, //salva dados das sessoes anonimas
-	    store: new MongoStore({mongooseConnection: db.mongoose.connection })
+        secret: 'project6', // secret key for the session
+        resave: true, // forces the session to be saved back to the session store
+        saveUninitialized: true, // saves data from anonymous sessions
+        store: new MongoStore({ mongooseConnection: db.mongoose.connection }),
     })
 );
+
 app.use(flash());
 
 // view engine setup
